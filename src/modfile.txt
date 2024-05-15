@@ -1,0 +1,9 @@
+Top Import register.lua
+Top Import config.lua
+Import core.lua
+
+To Scripts/TraitData_Keepsake.lua
+Import Data/TraitData_Keepsake.lua
+
+To Game/Text/en/TraitText.en.sjson
+SJSON Data/Game/Text/TraitText.en.sjson

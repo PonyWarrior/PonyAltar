@@ -1,0 +1,34 @@
+{
+    Texts = [
+        "_search", [
+            { Id = "ForceZeusBoonKeepsake" }
+            { Description = "While you have {$Keywords.ReserveMana} Magick{!Icons.Mana}, your {$Keywords.Omega} use {#ManaFormat}{$TooltipData.ExtractData.ManaDelta:F} {#Prev}less Magick{!Icons.Mana}." }
+            { Id = "ForceZeusBoonKeepsake_Inactive" }
+            { Description = "While you have {$Keywords.ReserveMana} Magick{!Icons.Mana}, your {$Keywords.Omega} use {#ManaFormat}{$TooltipData.ExtractData.ManaDelta:F} {#Prev}less Magick{!Icons.Mana}." }
+            { Id = "ForcePoseidonBoonKeepsake" }
+            { Description = "Slain enemies drop {#MoneyFormatBold}+{$TooltipData.ExtractData.TooltipHeal:F} {!Icons.Currency}{#Prev}." }
+            { Id = "ForcePoseidonBoonKeepsake_Inactive" }
+            { Description = "Slain enemies drop {#MoneyFormatBold}+{$TooltipData.ExtractData.TooltipHeal:F} {!Icons.Currency}{#Prev}." }
+            { Id = "ForceApolloBoonKeepsake" }
+            { Description = "Extends the invulnerability period of your {$Keywords.Dash} by {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipMultiplier:F}{#Prev}." }
+            { Id = "ForceApolloBoonKeepsake_Inactive" }
+            { Description = "Extends the invulnerability period of your {$Keywords.Dash} by {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipMultiplier:F}{#Prev}." }
+            { Id = "ForceHestiaBoonKeepsake" }
+            { Description = "All your damage is increased by {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipDamage:F} {#Prev}, but you have {#PenaltyFormat}{$TooltipData.ExtractData.HealthPenalty:P}{#Prev}{!Icons.HealthDown}." }
+            { Id = "ForceHestiaBoonKeepsake_Inactive" }
+            { Description = "All your damage is increased by {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipDamage:F} {#Prev}, but you have {#PenaltyFormat}{$TooltipData.ExtractData.HealthPenalty:P}{#Prev}{!Icons.HealthDown}." }
+            { Id = "ForceHephaestusBoonKeepsake" }
+            { Description = "Each point of {!Icons.ArmorTotal}you have increases your damage by {#AltUpgradeFormat}0.{$TooltipData.ExtractData.TooltipDamage:F} {#Prev}, up to {#AltUpgradeFormat}30%{#Prev}." }
+            { Id = "ForceHephaestusBoonKeepsake_Inactive" }
+            { Description = "Each point of {!Icons.ArmorTotal}you have increases your damage by {#AltUpgradeFormat}0.{$TooltipData.ExtractData.TooltipDamage:F} {#Prev}, up to {#AltUpgradeFormat}30%{#Prev}." }
+            { Id = "ForceAphroditeBoonKeepsake" }
+            { Description = "Increases your chances to receive a {$Keywords.GodBoon} of higher {$Keywords.Rarity}. {#RareFormat}Rare {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.RareBonus:P} {#Prev}and {#EpicFormat}Epic {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.EpicBonus:P} {#Prev}." }
+            { Id = "ForceAphroditeBoonKeepsake_Inactive" }
+            { Description = "Increases your chances to receive a {$Keywords.GodBoon} of higher {$Keywords.Rarity}. {#RareFormat}Rare {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.RareBonus:P} {#Prev}and {#EpicFormat}Epic {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.EpicBonus:P} {#Prev}." }
+            { Id = "ForceDemeterBoonKeepsake" }
+            { Description = "While under {#BoldFormatGraft}{$TooltipData.ExtractData.Health:F}{#Prev}{!Icons.Health}, your {$Keywords.Omega} use {#ManaFormat}{$TooltipData.ExtractData.ManaDelta:F} {#Prev}less Magick{!Icons.Mana}." }
+            { Id = "ForceDemeterBoonKeepsake_Inactive" }
+            { Description = "While under {#BoldFormatGraft}{$TooltipData.ExtractData.Health:F}{#Prev}{!Icons.Health}, your {$Keywords.Omega} use {#ManaFormat}{$TooltipData.ExtractData.ManaDelta:F} {#Prev}less Magick{!Icons.Mana}." }
+        ]
+    ]
+}
