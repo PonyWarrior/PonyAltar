@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2024-05-15
+
 ### Added
 
 - First version of the mod!
+
+[unreleased]: https://github.com/PonyWarrior/PonyAltar/compare/0.1.0...HEAD
+[0.1.0]: https://github.com/PonyWarrior/PonyAltar/compare/140aed0b7121411086ba47035cfa509d4a26dc71...0.1.0
