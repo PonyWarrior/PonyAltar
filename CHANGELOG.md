@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Changed menu display logic, fixing issues and supporting displaying more gods
+
+### Added
+
+- Chaos
+- Selene
+- Artemis
+- Altar menu now opens when you close the keepsake rack
+
 ## [0.1.1] - 2024-05-15
 
 ### Fixed

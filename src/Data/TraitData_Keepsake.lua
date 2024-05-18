@@ -5,31 +5,15 @@ TraitSetData.Keepsakes = {
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
 		Icon = "GUI\\Screens\\Codex\\Icon-Unseen",
 		Slot = "Altar",
-		ForceBoonName = "",
+		Hidden = true,
+		-- ForceBoonName = "",
 		RarityUpgradeData =
 		{
 			LootName = "",
 			Uses = 1,
 			MaxRarity = 1,
-			ReportValues =
-			{
-				ReportedMaxRarity = "MaxRarity",
-				ReportedUpgrades = "Uses",
-			},
 		},
 		Uses = 1,
-		ExtractValues =
-		{
-			{
-				Key = "ReportedUpgrades",
-				ExtractAs = "Uses",
-			},
-			{
-				Key = "ReportedMaxRarity",
-				ExtractAs = "RarityLevel",
-				Format = "Rarity",
-			}
-		},
 	},
 	ForceZeusBoonKeepsake =
 	{

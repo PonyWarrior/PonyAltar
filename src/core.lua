@@ -15,6 +15,10 @@ mod.Data.Portraits = {
 	"Codex_Portrait_Demeter",
 	"Codex_Portrait_Hephaestus",
 	"Codex_Portrait_Hestia",
+	"Codex_Portrait_Hera",
+	"Codex_Portrait_Chaos",
+	"Codex_Portrait_Selene",
+	"Codex_Portrait_Artemis",
 }
 
 ModUtil.Table.Merge(ScreenData, {
@@ -32,7 +36,11 @@ ModUtil.Table.Merge(ScreenData, {
 			"AphroditeGift01",
 			"DemeterGift01",
 			"HephaestusGift01",
-			"HestiaGift01"
+			"HestiaGift01",
+			"HeraGift01",
+			"ChaosGift01",
+			"SeleneGift01",
+			"ArtemisGift01",
 		},
 
 		ComponentData =
@@ -131,7 +139,7 @@ function mod.OpenAltarMenu()
 	CreateScreenFromData(screen, screen.ComponentData)
 
 	components.GodTextbox = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray" })
-	Attach({ Id = components.GodTextbox.Id, DestinationId = components.Background.Id, OffsetX = 0, OffsetY = 250 })
+	Attach({ Id = components.GodTextbox.Id, DestinationId = components.Background.Id, OffsetX = 0, OffsetY = 300 })
 	CreateTextBox({
 		Id = components.GodTextbox.Id,
 		Text = screen.SelectedGod,
@@ -154,7 +162,15 @@ function mod.OpenAltarMenu()
 	-- wait(0.3)
 
 	--Display
-	for index, value in ipairs(screen.ItemOrder) do
+	local index = 0
+	local rowOffset = 300
+	local columnOffset = 190
+	local boonsPerRow = 9
+	local rowsPerPage = 99
+	local rowoffsetX = 200
+	local rowoffsetY = 350
+
+	for _, value in ipairs(screen.ItemOrder) do
 		if GameState.TextLinesRecord[value] then
 			local godName = string.gsub(value, "Gift01", "")
 			local upgradeName = godName .. "Upgrade"
@@ -162,47 +178,62 @@ function mod.OpenAltarMenu()
 			local buttonKey = "Button" .. index
 			local fraction = 0.1
 			local keepsakeTraitName = "Force" .. godName .. "BoonKeepsake"
-			local level = GetKeepsakeLevel(keepsakeTraitName)
+			if godName == "Selene" then
+				upgradeName = "SpellDrop"
+				keepsakeTraitName = "SpellTalentKeepsake"
+			elseif godName == "Artemis" then
+				upgradeName = "NPC_Artemis_01"
+				keepsakeTraitName = "LowHealthCritKeepsake"
+			elseif godName == "Chaos" then
+				upgradeName = "TrialUpgrade"
+				keepsakeTraitName = "RandomBlessingKeepsake"
+			end
 
-			components[buttonKey] = CreateScreenComponent({
-				Name = "ButtonDefault",
-				X = screen.RowStartX + 200,
-				Y =
-					screen.RowStartY - 500,
-				Scale = 1.0,
-				Group = "Combat_Menu_TraitTray"
-			})
-			components[buttonKey].Image = key
-			components[buttonKey].God = upgradeName
-			components[buttonKey].Level = level
-			components[buttonKey].Index = index
-			SetScaleX({ Id = components[buttonKey].Id, Fraction = 0.69 })
-			SetScaleY({ Id = components[buttonKey].Id, Fraction = 3.8 })
-			components[key] = CreateScreenComponent({
-				Name = "BlankObstacle",
-				X = screen.RowStartX + 200,
-				Y = screen
-					.RowStartY - 500,
-				Scale = 1.2,
-				Group = "Combat_Menu_TraitTray"
-			})
+			if CurrentRun.Hero.IsDead or CurrentRun.TraitCache[upgradeName] == nil then
+				local rowIndex = math.floor(index / boonsPerRow)
+				local offsetX = rowoffsetX + columnOffset * (index % boonsPerRow)
+				local offsetY = rowoffsetY + rowOffset * (rowIndex % rowsPerPage)
+				local level = GetKeepsakeLevel(keepsakeTraitName)
+				index = index + 1
 
-			SetThingProperty({ Property = "Ambient", Value = 0.0, DestinationId = components[key].Id })
-			components[buttonKey].OnPressedFunctionName = mod.SelectGod
-			fraction = 1.0
 
-			SetAlpha({ Ids = { components[key].Id, components[buttonKey].Id }, Fraction = 0 })
-			SetAlpha({ Ids = { components[key].Id, components[buttonKey].Id }, Fraction = fraction, Duration = 0.9 })
-			SetAnimation({ DestinationId = components[key].Id, Name = mod.Data.Portraits[index], Scale = 0.4 })
-			Move({
-				Ids = { components[key].Id, components[buttonKey].Id },
-				OffsetX = screen.RowStartX,
-				OffsetY = 500,
-				Duration =
-					index / 10
-			})
-
-			screen.RowStartX = screen.RowStartX + screen.IncrementX
+				components[buttonKey] = CreateScreenComponent({
+					Name = "ButtonDefault",
+					-- X = screen.RowStartX + 200,
+					-- Y = screen.RowStartY - 500,
+					Scale = 1.0,
+					Group = "Combat_Menu_TraitTray",
+					Color = mod.Data.BoonColors[level]
+				})
+				components[buttonKey].Image = key
+				components[buttonKey].God = upgradeName
+				components[buttonKey].Level = level
+				components[buttonKey].Index = index
+				SetScaleX({ Id = components[buttonKey].Id, Fraction = 0.69 })
+				SetScaleY({ Id = components[buttonKey].Id, Fraction = 3.8 })
+				components[key] = CreateScreenComponent({
+					Name = "BlankObstacle",
+					-- X = screen.RowStartX + 200,
+					-- Y = screen.RowStartY - 500,
+					Scale = 1.2,
+					Group = "Combat_Menu_TraitTray"
+				})
+	
+				SetThingProperty({ Property = "Ambient", Value = 0.0, DestinationId = components[key].Id })
+				components[buttonKey].OnPressedFunctionName = mod.SelectGod
+				fraction = 1.0
+	
+				SetAlpha({ Ids = { components[key].Id, components[buttonKey].Id }, Fraction = 0 })
+				SetAlpha({ Ids = { components[key].Id, components[buttonKey].Id }, Fraction = fraction, Duration = 0.9 })
+				SetAnimation({ DestinationId = components[key].Id, Name = "Codex_Portrait_" .. godName, Scale = 0.4 })
+				local delay = RandomFloat(0.1, 0.5)
+				Move({
+					Ids = { components[key].Id, components[buttonKey].Id },
+					OffsetX = offsetX,
+					OffsetY = offsetY,
+					Duration = delay
+				})
+			end
 		end
 	end
 	--
@@ -221,7 +252,7 @@ function mod.ClosePonyAltar(screen)
 	notifyExistingWaiters("PonyAltar")
 end
 
-local BoonColors = {
+mod.Data.BoonColors = {
 	Color.BoonPatchCommon,
 	Color.BoonPatchRare,
 	Color.BoonPatchEpic,
@@ -230,7 +261,7 @@ local BoonColors = {
 
 function mod.SelectGod(screen, button)
 	if mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == button.God then
-		local color = BoonColors[1]
+		local color = mod.Data.BoonColors[1]
 		ModifyTextBox({ Id = screen.Components.GodTextbox.Id, Text = "No God selected", Color = color })
 		mod.UnequipAltarBoon()
 		mod.Data.SelectedGod = nil
@@ -238,7 +269,7 @@ function mod.SelectGod(screen, button)
 		mod.Data.RarifyUsesLeft = nil
 		mod.Data.ForceBoonUsesLeft = nil
 	else
-		local color = BoonColors[button.Level]
+		local color = mod.Data.BoonColors[button.Level]
 		ModifyTextBox({ Id = screen.Components.GodTextbox.Id, Text = button.God, Color = color })
 		mod.UnequipAltarBoon()
 		mod.Data.SelectedGod = button.God
@@ -252,14 +283,39 @@ end
 function mod.EquipAltarBoon()
 	if mod.Data.SelectedGod ~= nil then
 		local altarTrait = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = "AltarBoon" })
-		altarTrait.ForceBoonName = mod.Data.SelectedGod
-		altarTrait.RarityUpgradeData.LootName = mod.Data.SelectedGod
-		altarTrait.RarityUpgradeData.MaxRarity = mod.Data.RarifyLevel
-		AddTraitToHero({ TraitData = altarTrait })
-		if not CurrentRun.Hero.IsDead then
-			CurrentRun.TraitCache[altarTrait.Name] = CurrentRun.TraitCache[altarTrait.Name] or 1
+		if mod.Data.SelectedGod ~= "SpellDrop" and mod.Data.SelectedGod ~= "NPC_Artemis_01" and mod.Data.SelectedGod ~= "TrialUpgrade" then
+			altarTrait.ForceBoonName = mod.Data.SelectedGod
+			altarTrait.RarityUpgradeData.LootName = mod.Data.SelectedGod
+			altarTrait.RarityUpgradeData.MaxRarity = mod.Data.RarifyLevel
+			AddTraitToHero({ TraitData = altarTrait, SkipNewTraitHighlight = true })
+		elseif mod.Data.SelectedGod == "SpellDrop" then
+
+		elseif mod.Data.SelectedGod == "NPC_Artemis_01" then
+			mod.SetupForcedArtemis()
+		elseif mod.Data.SelectedGod == "TrialUpgrade" then
+			altarTrait.RarityUpgradeData.LootName = mod.Data.SelectedGod
+			altarTrait.RarityUpgradeData.MaxRarity = mod.Data.RarifyLevel
+			altarTrait.ForceSecretDoor = true
+			altarTrait.RemainingUses = 1
+
+			AddTraitToHero({ TraitData = altarTrait, SkipNewTraitHighlight = true })
 		end
-		print("Equipped altar boon")
+		if not CurrentRun.Hero.IsDead then
+			CurrentRun.TraitCache[mod.Data.SelectedGod] = CurrentRun.TraitCache[mod.Data.SelectedGod] or 1
+		end
+	end
+end
+
+function mod.SetupForcedArtemis()
+	if CurrentRun.CurrentRoom == nil then
+		ForceNextEncounter = "ArtemisCombatF"
+	elseif CurrentRun.CurrentRoom.NextRoomSet ~= nil then
+		local roomSetName = GetRandomValue(CurrentRun.CurrentRoom.NextRoomSet)
+		if roomSetName == "G" or roomSetName == "N" then
+			ForceNextEncounter = "ArtemisCombat" .. roomSetName
+		else
+			print("PonyAltar : Invalid roomset for artemis encounter > " .. roomSetName)
+		end
 	end
 end
 
@@ -359,3 +415,42 @@ ModUtil.Path.Context.Wrap("Damage", function()
 		return base(a, ...)
 	end, mod)
 end, mod)
+
+ModUtil.Path.Wrap("ChooseRoomReward", function(base, run, room, rewardStoreName, previouslyChosenRewards, args)
+	args = args or {}
+	local flag = false
+	if mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == "SpellDrop" and mod.Data.ForceBoonUsesLeft > 0 then
+		flag = true
+		args.ForcedRewards = {}
+		table.insert(args.ForcedRewards, {
+			Name = "SpellDrop",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "EncountersOccurredCache", "ArtemisCombatIntro" },
+				},
+				{
+					PathFalse = { "GameState", "UseRecord", "SpellDrop" },
+				},
+			}
+		})
+	end
+	local rewardName = base(run, room, rewardStoreName, previouslyChosenRewards, args)
+	print(rewardName)
+	if rewardName == "SpellDrop" and flag then
+		mod.Data.ForceBoonUsesLeft = 0
+	end
+	return rewardName
+end)
+
+-- ModUtil.Path.Wrap("OpenSpellScreen", function (base, ...)
+-- 	if mod.Data.SelectedGod and mod.Data.SelectedGod == "SpellDrop" and mod.Data.ForceBoonUsesLeft > 0 then
+-- 		mod.Data.ForceBoonUsesLeft = 0
+-- 	end
+-- 	base(...)
+-- end)
+
+ModUtil.Path.Wrap("KeepsakeScreenClose", function (base, ...)
+	base(...)
+	mod.OpenAltarMenu()
+end)
