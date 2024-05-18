@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2024-05-18
+
 ### Changed
 
 - Changed menu display logic, fixing issues and supporting displaying more gods
@@ -30,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First version of the mod!
 
-[unreleased]: https://github.com/PonyWarrior/PonyAltar/compare/0.1.1...HEAD
+[unreleased]: https://github.com/PonyWarrior/PonyAltar/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/PonyWarrior/PonyAltar/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/PonyWarrior/PonyAltar/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/PonyWarrior/PonyAltar/compare/140aed0b7121411086ba47035cfa509d4a26dc71...0.1.0
