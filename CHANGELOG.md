@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2024-05-20
+
 ### Fixed
 
 - Fixed switching gods not un-forcing the deselected gods
@@ -18,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Buffed Aphrodite keepsake from (level 3) +15% Rare +9% Epic to +30% Rare +10% Epic +6% Duo
-- Buffed Demeter keepsake, life threshold increased from <30% to <50%
+- Buffed Demeter keepsake, life threshold increased from &lt;30% to &lt;50%
 - Hephaestus keepsake reworked, now grants you 50% of max health rewards as extra armor (level 3)
 
 ## [0.2.0] - 2024-05-18
@@ -46,7 +48,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First version of the mod!
 
-[unreleased]: https://github.com/PonyWarrior/PonyAltar/compare/0.2.0...HEAD
+[unreleased]: https://github.com/PonyWarrior/PonyAltar/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/PonyWarrior/PonyAltar/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/PonyWarrior/PonyAltar/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/PonyWarrior/PonyAltar/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/PonyWarrior/PonyAltar/compare/140aed0b7121411086ba47035cfa509d4a26dc71...0.1.0
