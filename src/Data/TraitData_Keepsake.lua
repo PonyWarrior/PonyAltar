@@ -294,21 +294,33 @@ TraitSetData.Keepsakes = {
 		Icon = "Keepsake_17",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeZeusRing",
 		InRackTitle = "ForceHephaestusBoonKeepsake_Rack",
-		TooltipDamage = { BaseValue = 25 },
-		AddOutgoingDamageModifiers = {
-			ArmoredDamageMultiplier =
-			{
-				BaseValue = 0.25,
-				SourceIsMultiplier = true,
-			},
-			ValidWeapons = WeaponSets.HeroAllWeapons,
-		},
+		HealingToArmor = { BaseValue = 0.2 },
 		ExtractValues =
 		{
 			{
-				Key = "TooltipDamage",
-				ExtractAs = "TooltipDamage",
+				Key = "HealingToArmor",
+				ExtractAs = "TooltipArmor",
+				Format = "Percent",
 			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 1.75,
+			},
+			Epic =
+			{
+				Multiplier = 2.5,
+			},
+			Heroic =
+			{
+				Multiplier = 2.5,
+			}
 		},
 		EquipVoiceLines =
 		{
@@ -340,7 +352,7 @@ TraitSetData.Keepsakes = {
 		InRackTitle = "ForceDemeterBoonKeepsake_Rack",
 		ManaCostModifiers =
 		{
-			LowHealthThreshold = 0.3,
+			LowHealthThreshold = 0.5,
 			WeaponNames = WeaponSets.HeroAllWeapons,
 			ManaCostMultiplierWhileLowHealth = { BaseValue = 0.6 },
 			ReportValues = {
@@ -429,11 +441,13 @@ TraitSetData.Keepsakes = {
 		InRackTitle = "ForceAphroditeBoonKeepsake_Rack",
 		RarityBonus =
 		{
-			Rare = { BaseValue = 0.05 },
-			Epic = { BaseValue = 0.03 },
+			Rare = { BaseValue = 0.10 },
+			Epic = { BaseValue = 0.034 },
+			Duo = { BaseValue = 0.02 },
 			ReportValues = {
 				ReportedRareRarityBonus = "Rare",
 				ReportedEpicRarityBonus = "Epic",
+				ReportedDuoRarityBonus = "Duo",
 			}
 
 		},
@@ -447,6 +461,11 @@ TraitSetData.Keepsakes = {
 			{
 				Key = "ReportedEpicRarityBonus",
 				ExtractAs = "EpicBonus",
+				Format = "Percent",
+			},
+			{
+				Key = "ReportedDuoRarityBonus",
+				ExtractAs = "DuoBonus",
 				Format = "Percent",
 			},
 		},
@@ -469,6 +488,105 @@ TraitSetData.Keepsakes = {
 		{
 			{
 				Text = "SignoffAphrodite",
+			},
+		},
+	},
+	ForceHeraBoonKeepsake =
+	{
+		InheritFrom = { "BaseBoonUpgradeKeepsake" },
+		Icon = "Keepsake_13",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeAthenaOwl",
+		InRackTitle = "ForceHeraBoonKeepsake_Rack",
+		-- TooltipMultiplier = { BaseValue = 1.5 },
+		VisualActivationRequirements = 
+		{
+			{
+				{
+					PathFalse = { "CurrentRun", "Hero", "SlottedTraits", "Melee" },
+				},
+			},
+			{
+				{
+					PathFalse = { "CurrentRun", "Hero", "SlottedTraits", "Secondary" },
+				},
+			},
+
+		},
+		AddOutgoingDamageModifiers =
+		{
+			EmptySlotMultiplier = {
+				BaseValue = 1.5,
+				SourceIsMultiplier = true,
+			},
+			EmptySlotValidData =
+			{
+				--Ranged = WeaponSets.HeroNonPhysicalWeapons,
+				Melee = WeaponSets.HeroPrimaryWeapons,
+				Secondary = WeaponSets.HeroSecondaryWeapons,
+			},
+			ReportValues = { ReportedWeaponMultiplier = "EmptySlotMultiplier"},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 1.5,
+			},
+			Epic =
+			{
+				Multiplier = 2.0,
+			}
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedWeaponMultiplier",
+				ExtractAs = "TooltipBonus",
+				Format = "PercentDelta",
+			},
+		},
+		EquipVoiceLines =
+		{
+			{
+				PreLineWait = 0.3,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.2,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+
+				{ Cue = "/VO/Melinoe_3191", Text = "The Fan." },
+			},
+			{
+				PreLineWait = 0.3,
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				ChanceToPlay = 0.25,
+				Source = { LineHistoryName = "NPC_Hera_01", SubtitleColor = Color.HeraVoice },
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "HeraGift03" },
+					},
+				},
+				Cooldowns =
+				{
+					{ Name = "KeepsakeGiverSpeechPlayedRecently", Time = 90 },
+				},
+				{ Cue = "/VO/HeraKeepsake_0160", Text = "Yes, my dear?" },
+				{ Cue = "/VO/HeraKeepsake_0161", Text = "Regards." },
+			},
+			[3] = GlobalVoiceLines.AwardSelectedVoiceLines,
+		},
+		SignOffData =
+		{
+			{
+				Text = "SignoffHera",
 			},
 		},
 	},

@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed switching gods not un-forcing the deselected gods
+
+### Added
+
+- Added Hera Keepsake
+
+### Changed
+
+- Buffed Aphrodite keepsake from (level 3) +15% Rare +9% Epic to +30% Rare +10% Epic +6% Duo
+- Buffed Demeter keepsake, life threshold increased from <30% to <50%
+- Hephaestus keepsake reworked, now grants you 50% of max health rewards as extra armor (level 3)
+
 ## [0.2.0] - 2024-05-18
 
 ### Changed

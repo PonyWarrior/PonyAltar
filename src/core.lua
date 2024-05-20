@@ -282,6 +282,9 @@ end
 
 function mod.EquipAltarBoon()
 	if mod.Data.SelectedGod ~= nil then
+		if HeroHasTrait("AltarBoon") then
+			mod.UnequipAltarBoon()
+		end
 		local altarTrait = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = "AltarBoon" })
 		if mod.Data.SelectedGod ~= "SpellDrop" and mod.Data.SelectedGod ~= "NPC_Artemis_01" and mod.Data.SelectedGod ~= "TrialUpgrade" then
 			altarTrait.ForceBoonName = mod.Data.SelectedGod
@@ -324,6 +327,15 @@ function mod.UnequipAltarBoon()
 		if trait.Slot ~= nil and trait.Slot == "Altar" then
 			RemoveTrait(CurrentRun.Hero, trait.Name)
 		end
+	end
+end
+
+function mod.CheckHephaestusKeepsake(health)
+	if HeroHasTrait("ForceHephaestusBoonKeepsake") and health then
+		local mult = GetTotalHeroTraitValue("HealingToArmor")
+		local armor = health * mult
+		print("Added " .. armor .. " from " .. health .. " health")
+		AddArmor(armor)
 	end
 end
 
@@ -398,23 +410,53 @@ ModUtil.Path.Context.Wrap("CheckMoneyDrop", function()
 	end, mod)
 end, mod)
 
-ModUtil.Path.Context.Wrap("Damage", function()
-	ModUtil.Path.Wrap("CalculateDamageMultipliers", function(base, a, ...)
-		if a ~= nil and a == CurrentRun.Hero and HeroHasTrait("ForceHephaestusBoonKeepsake") and CurrentRun.Hero.HealthBuffer ~= nil and CurrentRun.Hero.HealthBuffer > 0 then
-			local damageMult = 0
-			for i, modifierData in pairs(a.OutgoingDamageModifiers) do
-				if modifierData.ArmoredDamageMultiplier then
-					damageMult = (modifierData.ArmoredDamageMultiplier * CurrentRun.Hero.HealthBuffer) / 100
-					if damageMult > 0.3 then
-						damageMult = 0.3
-					end
-				end
-			end
-			return base(a, ...) + damageMult
-		end
-		return base(a, ...)
-	end, mod)
-end, mod)
+ModUtil.Path.Override("AddMaxHealth", function(healthGained, source, args)
+	args = args or {}
+	if args.Thread then
+		args.Thread = false
+		thread(AddMaxHealth, healthGained, source, args)
+		return
+	end
+	local startingHealth = CurrentRun.Hero.MaxHealth
+	wait(args.Delay)
+	healthGained = round(healthGained)
+	local traitName = "RoomRewardMaxHealthTrait"
+	if args.NoHealing then
+		traitName = "RoomRewardEmptyMaxHealthTrait"
+	end
+
+	local healthTraitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName })
+	healthTraitData.PropertyChanges[1].ChangeValue = healthGained
+	--MOD START
+	mod.CheckHephaestusKeepsake(healthGained)
+	--MOD END
+	AddTraitToHero({ TraitData = healthTraitData })
+	healthGained = round(healthGained * GetTotalHeroTraitValue("MaxHealthMultiplier", { IsMultiplier = true }))
+	if not (args.Silent) then
+		MaxHealthIncreaseText({ MaxHealthGained = CurrentRun.Hero.MaxHealth - startingHealth, SpecialText =
+		"MaxHealthIncrease" })
+	end
+end)
+
+
+
+-- ModUtil.Path.Context.Wrap("Damage", function()
+-- 	ModUtil.Path.Wrap("CalculateDamageMultipliers", function(base, a, ...)
+-- 		if a ~= nil and a == CurrentRun.Hero and HeroHasTrait("ForceHephaestusBoonKeepsake") and CurrentRun.Hero.HealthBuffer ~= nil and CurrentRun.Hero.HealthBuffer > 0 then
+-- 			local damageMult = 0
+-- 			for i, modifierData in pairs(a.OutgoingDamageModifiers) do
+-- 				if modifierData.ArmoredDamageMultiplier then
+-- 					damageMult = (modifierData.ArmoredDamageMultiplier * CurrentRun.Hero.HealthBuffer) / 100
+-- 					if damageMult > 0.3 then
+-- 						damageMult = 0.3
+-- 					end
+-- 				end
+-- 			end
+-- 			return base(a, ...) + damageMult
+-- 		end
+-- 		return base(a, ...)
+-- 	end, mod)
+-- end, mod)
 
 ModUtil.Path.Wrap("ChooseRoomReward", function(base, run, room, rewardStoreName, previouslyChosenRewards, args)
 	args = args or {}
@@ -452,5 +494,6 @@ end)
 
 ModUtil.Path.Wrap("KeepsakeScreenClose", function (base, ...)
 	base(...)
+	-- rom.data.reload_game_data()
 	mod.OpenAltarMenu()
 end)
