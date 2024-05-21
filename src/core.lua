@@ -218,11 +218,11 @@ function mod.OpenAltarMenu()
 					Scale = 1.2,
 					Group = "Combat_Menu_TraitTray"
 				})
-	
+
 				SetThingProperty({ Property = "Ambient", Value = 0.0, DestinationId = components[key].Id })
 				components[buttonKey].OnPressedFunctionName = mod.SelectGod
 				fraction = 1.0
-	
+
 				SetAlpha({ Ids = { components[key].Id, components[buttonKey].Id }, Fraction = 0 })
 				SetAlpha({ Ids = { components[key].Id, components[buttonKey].Id }, Fraction = fraction, Duration = 0.9 })
 				SetAnimation({ DestinationId = components[key].Id, Name = "Codex_Portrait_" .. godName, Scale = 0.4 })
@@ -294,7 +294,7 @@ function mod.EquipAltarBoon()
 		elseif mod.Data.SelectedGod == "SpellDrop" then
 
 		elseif mod.Data.SelectedGod == "NPC_Artemis_01" then
-			mod.SetupForcedArtemis()
+
 		elseif mod.Data.SelectedGod == "TrialUpgrade" then
 			altarTrait.RarityUpgradeData.LootName = mod.Data.SelectedGod
 			altarTrait.RarityUpgradeData.MaxRarity = mod.Data.RarifyLevel
@@ -305,19 +305,6 @@ function mod.EquipAltarBoon()
 		end
 		if not CurrentRun.Hero.IsDead then
 			CurrentRun.TraitCache[mod.Data.SelectedGod] = CurrentRun.TraitCache[mod.Data.SelectedGod] or 1
-		end
-	end
-end
-
-function mod.SetupForcedArtemis()
-	if CurrentRun.CurrentRoom == nil then
-		ForceNextEncounter = "ArtemisCombatF"
-	elseif CurrentRun.CurrentRoom.NextRoomSet ~= nil then
-		local roomSetName = GetRandomValue(CurrentRun.CurrentRoom.NextRoomSet)
-		if roomSetName == "G" or roomSetName == "N" then
-			ForceNextEncounter = "ArtemisCombat" .. roomSetName
-		else
-			print("PonyAltar : Invalid roomset for artemis encounter > " .. roomSetName)
 		end
 	end
 end
@@ -438,59 +425,35 @@ ModUtil.Path.Override("AddMaxHealth", function(healthGained, source, args)
 	end
 end)
 
-
-
--- ModUtil.Path.Context.Wrap("Damage", function()
--- 	ModUtil.Path.Wrap("CalculateDamageMultipliers", function(base, a, ...)
--- 		if a ~= nil and a == CurrentRun.Hero and HeroHasTrait("ForceHephaestusBoonKeepsake") and CurrentRun.Hero.HealthBuffer ~= nil and CurrentRun.Hero.HealthBuffer > 0 then
--- 			local damageMult = 0
--- 			for i, modifierData in pairs(a.OutgoingDamageModifiers) do
--- 				if modifierData.ArmoredDamageMultiplier then
--- 					damageMult = (modifierData.ArmoredDamageMultiplier * CurrentRun.Hero.HealthBuffer) / 100
--- 					if damageMult > 0.3 then
--- 						damageMult = 0.3
--- 					end
--- 				end
--- 			end
--- 			return base(a, ...) + damageMult
--- 		end
--- 		return base(a, ...)
--- 	end, mod)
--- end, mod)
-
-ModUtil.Path.Wrap("ChooseRoomReward", function(base, run, room, rewardStoreName, previouslyChosenRewards, args)
-	args = args or {}
-	local flag = false
-	if mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == "SpellDrop" and mod.Data.ForceBoonUsesLeft > 0 then
-		flag = true
-		args.ForcedRewards = {}
-		table.insert(args.ForcedRewards, {
-			Name = "SpellDrop",
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "EncountersOccurredCache", "ArtemisCombatIntro" },
-				},
-				{
-					PathFalse = { "GameState", "UseRecord", "SpellDrop" },
-				},
-			}
-		})
-	end
-	local rewardName = base(run, room, rewardStoreName, previouslyChosenRewards, args)
-	print(rewardName)
-	if rewardName == "SpellDrop" and flag then
+ModUtil.Path.Wrap("SetupRoomReward", function(base, currentRun, room, previouslyChosenRewards, args)
+	if not room.ForceLootName and mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == "SpellDrop" and mod.Data.ForceBoonUsesLeft > 0 then
+		print("Forcing Selene")
+		room.ChosenRewardType = "SpellDrop"
+		room.RewardStoreName = "RunProgress"
+		room.ForceLootName = "SpellDrop"
 		mod.Data.ForceBoonUsesLeft = 0
 	end
-	return rewardName
+	base(currentRun, room, previouslyChosenRewards, args)
 end)
 
--- ModUtil.Path.Wrap("OpenSpellScreen", function (base, ...)
--- 	if mod.Data.SelectedGod and mod.Data.SelectedGod == "SpellDrop" and mod.Data.ForceBoonUsesLeft > 0 then
--- 		mod.Data.ForceBoonUsesLeft = 0
--- 	end
--- 	base(...)
--- end)
+ModUtil.Path.Wrap("ChooseEncounter", function(base, currentRun, room, args)
+	if mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == "NPC_Artemis_01" and mod.Data.ForceBoonUsesLeft > 0 then
+		local roomSetName = ""
+		if room.NextRoomSet then
+			roomSetName = GetRandomValue(room.NextRoomSet)
+		elseif room.RoomSetName then
+			roomSetName = room.RoomSetName
+		end
+		if roomSetName == "G" or roomSetName == "N" or roomSetName == "F" then
+			if not room.Name:find("Opening") and not room.Name:find("Intro") then
+				print("Forcing Artemis")
+				ForceNextEncounter = "ArtemisCombat" .. roomSetName
+				mod.Data.ForceBoonUsesLeft = 0
+			end
+		end
+	end
+	return base(currentRun, room, args)
+end)
 
 ModUtil.Path.Wrap("KeepsakeScreenClose", function (base, ...)
 	base(...)

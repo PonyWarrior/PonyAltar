@@ -28,3 +28,7 @@ Interact with the altar or close the keepsake rack to open the menu, showing you
 - Hephaestus : You gain 20/35/50% of all Max Health rewards as Armor.
 - Hestia : All your damage is increased by 5/10/15%, but you have -20% health.
 - Hera : Your Attack and Special each deal +50/75/100% damage while not empowered by a Boon.
+
+### Additional features
+
+You can force Chaos, Selene and Artemis to spawn like regular gods. Artemis will only appear in Erebus, Oceanus and Ephyra however.
