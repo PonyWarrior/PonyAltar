@@ -455,7 +455,7 @@ ModUtil.Path.Wrap("ChooseEncounter", function(base, currentRun, room, args)
 	return base(currentRun, room, args)
 end)
 
-ModUtil.Path.Wrap("KeepsakeScreenClose", function (base, ...)
+ModUtil.Path.Wrap("KeepsakeScreenClose", function(base, ...)
 	base(...)
 	-- rom.data.reload_game_data()
 	mod.OpenAltarMenu()

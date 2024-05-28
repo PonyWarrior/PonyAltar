@@ -1,6 +1,29 @@
 if not PonyAltar.Config.Enabled then return end
 
 TraitSetData.Keepsakes = {
+	BaseBoonUpgradeKeepsake =
+	{
+		InheritFrom = { "GiftTrait" },
+		DoesNotAutomaticallyExpire = true,
+		RarityLevels = {
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 2,
+			},
+			Epic =
+			{
+				Multiplier = 3,
+			},
+			Heroic =
+			{
+				Multiplier = 4,
+			},
+		}
+	},
 	AltarBoon = {
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
 		Icon = "GUI\\Screens\\Codex\\Icon-Unseen",
@@ -51,7 +74,7 @@ TraitSetData.Keepsakes = {
 			},
 			Heroic =
 			{
-				Multiplier = 0.78,
+				Multiplier = 0.67,
 			}
 		},
 		EquipVoiceLines =
@@ -181,7 +204,7 @@ TraitSetData.Keepsakes = {
 			},
 			Heroic =
 			{
-				Multiplier = 1.25,
+				Multiplier = 1.375,
 			}
 		},
 		EquipVoiceLines =
@@ -263,7 +286,7 @@ TraitSetData.Keepsakes = {
 			},
 			Heroic =
 			{
-				Multiplier = 1.1,
+				Multiplier = 1.15,
 			}
 		},
 		EquipVoiceLines =
@@ -319,7 +342,7 @@ TraitSetData.Keepsakes = {
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 3.75,
 			}
 		},
 		EquipVoiceLines =
@@ -389,7 +412,7 @@ TraitSetData.Keepsakes = {
 			},
 			Heroic =
 			{
-				Multiplier = 0.33,
+				Multiplier = 0.0,
 			}
 		},
 		EquipVoiceLines =
@@ -539,6 +562,10 @@ TraitSetData.Keepsakes = {
 			Epic =
 			{
 				Multiplier = 2.0,
+			},
+			Heroic =
+			{
+				Multiplier = 2.5,
 			}
 		},
 		ExtractValues =

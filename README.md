@@ -20,14 +20,14 @@ Interact with the altar or close the keepsake rack to open the menu, showing you
 
 - The keepsakes :
 
-- Zeus : While you have primed magick, your omega moves use 10/20/30% less magick.
-- Poseidon : Slain enemies drop +100/200/300% gold.
-- Demeter : While under 50% health, your Omega moves use 40/60/80% less magick.
-- Apollo : Extends the invulnerability period of your dash by 20/35/50%.
-- Aphrodite : Increases your chances to receive a Boon of higher Rarity. Rare +10/20/30%, Epic +3/6/10% and Duo +2/4/6%.
-- Hephaestus : You gain 20/35/50% of all Max Health rewards as Armor.
-- Hestia : All your damage is increased by 5/10/15%, but you have -20% health.
-- Hera : Your Attack and Special each deal +50/75/100% damage while not empowered by a Boon.
+- Zeus : While you have primed magick, your omega moves use 10/20/30/40% less magick.
+- Poseidon : Slain enemies drop +100/200/300/400% gold.
+- Demeter : While under 50% health, your Omega moves use 40/60/80/100% less magick.
+- Apollo : Extends the invulnerability period of your dash by 20/35/50/65%.
+- Aphrodite : Increases your chances to receive a Boon of higher Rarity. Rare +10/20/30/40%, Epic +3/6/10/14% and Duo +2/4/6/8%.
+- Hephaestus : You gain 20/35/50/75% of all Max Health rewards as Armor.
+- Hestia : All your damage is increased by 5/10/15/20%, but you have -20% health.
+- Hera : Your Attack and Special each deal +50/75/100/150% damage while not empowered by a Boon.
 
 ### Additional features
 

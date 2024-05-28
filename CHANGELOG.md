@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added Heroic rarity levels for integration with PonyAO
+
 ## [0.3.1] - 2024-05-21
 
 ### Changed
