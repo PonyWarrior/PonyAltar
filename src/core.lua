@@ -7,20 +7,6 @@ table.insert(HubRoomData.Hub_PreRun.StartUnthreadedEvents,
 		FunctionName = "PonyAltar.SpawnAltar"
 	})
 
-mod.Data.Portraits = {
-	"Codex_Portrait_Zeus",
-	"Codex_Portrait_Poseidon",
-	"Codex_Portrait_Apollo",
-	"Codex_Portrait_Aphrodite",
-	"Codex_Portrait_Demeter",
-	"Codex_Portrait_Hephaestus",
-	"Codex_Portrait_Hestia",
-	"Codex_Portrait_Hera",
-	"Codex_Portrait_Chaos",
-	"Codex_Portrait_Selene",
-	"Codex_Portrait_Artemis",
-}
-
 ModUtil.Table.Merge(ScreenData, {
 	PonyAltar = {
 		Components = {},
@@ -101,6 +87,13 @@ ModUtil.Table.Merge(ScreenData, {
 		}
 	}
 })
+
+local BoonColors = {
+	Color.BoonPatchCommon,
+	Color.BoonPatchRare,
+	Color.BoonPatchEpic,
+	Color.BoonPatchHeroic
+}
 
 function mod.SpawnAltar()
 	local unlocked = true
@@ -203,7 +196,7 @@ function mod.OpenAltarMenu()
 					-- Y = screen.RowStartY - 500,
 					Scale = 1.0,
 					Group = "Combat_Menu_TraitTray",
-					Color = mod.Data.BoonColors[level]
+					Color = BoonColors[level]
 				})
 				components[buttonKey].Image = key
 				components[buttonKey].God = upgradeName
@@ -252,16 +245,9 @@ function mod.ClosePonyAltar(screen)
 	notifyExistingWaiters("PonyAltar")
 end
 
-mod.Data.BoonColors = {
-	Color.BoonPatchCommon,
-	Color.BoonPatchRare,
-	Color.BoonPatchEpic,
-	Color.BoonPatchHeroic
-}
-
 function mod.SelectGod(screen, button)
 	if mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == button.God then
-		local color = mod.Data.BoonColors[1]
+		local color = BoonColors[1]
 		ModifyTextBox({ Id = screen.Components.GodTextbox.Id, Text = "No God selected", Color = color })
 		mod.UnequipAltarBoon()
 		mod.Data.SelectedGod = nil
@@ -269,7 +255,7 @@ function mod.SelectGod(screen, button)
 		mod.Data.RarifyUsesLeft = nil
 		mod.Data.ForceBoonUsesLeft = nil
 	else
-		local color = mod.Data.BoonColors[button.Level]
+		local color = BoonColors[button.Level]
 		ModifyTextBox({ Id = screen.Components.GodTextbox.Id, Text = button.God, Color = color })
 		mod.UnequipAltarBoon()
 		mod.Data.SelectedGod = button.God
