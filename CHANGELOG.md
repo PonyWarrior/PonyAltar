@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed forcing Selene while having a Hex not forcing a Path of Star
+
 ## [0.3.3] - 2024-06-01
 
 ### Fixed

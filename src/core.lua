@@ -398,7 +398,7 @@ ModUtil.Path.Override("AddMaxHealth", function(healthGained, source, args)
 		traitName = "RoomRewardEmptyMaxHealthTrait"
 	end
 
-	local healthTraitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName })
+	local healthTraitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName })	
 	healthTraitData.PropertyChanges[1].ChangeValue = healthGained
 	--MOD START
 	mod.CheckHephaestusKeepsake(healthGained)
@@ -411,10 +411,19 @@ ModUtil.Path.Override("AddMaxHealth", function(healthGained, source, args)
 	end
 end)
 
+local requirements = {
+	{
+		PathFalse = { "CurrentRun", "UseRecord", "SpellDrop" },
+	},
+}
+
 ModUtil.Path.Wrap("SetupRoomReward", function(base, currentRun, room, previouslyChosenRewards, args)
 	if not room.ForceLootName and mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == "SpellDrop" and mod.Data.ForceBoonUsesLeft > 0 then
-		print("Forcing Selene")
-		room.ChosenRewardType = "SpellDrop"
+		local rewardname = "SpellDrop"
+		if not IsGameStateEligible(CurrentRun, requirements) then
+			rewardname = "TalentDrop"
+		end
+		room.ChosenRewardType = rewardname
 		room.RewardStoreName = "RunProgress"
 		room.ForceLootName = "SpellDrop"
 		mod.Data.ForceBoonUsesLeft = 0
