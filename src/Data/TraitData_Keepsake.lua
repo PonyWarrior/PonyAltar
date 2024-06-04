@@ -41,7 +41,7 @@ TraitSetData.Keepsakes = {
 	ForceZeusBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_12",
+		Icon = "Keepsake_46",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeZeusRing",
 		InRackTitle = "ForceZeusBoonKeepsake_Rack",
 		ManaCostModifiers =
@@ -121,7 +121,7 @@ TraitSetData.Keepsakes = {
 	ForcePoseidonBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_14",
+		Icon = "Keepsake_48",
 		EquipSound = "/SFX/Menu Sounds/KeepsakePoseidonShell",
 		InRackTitle = "ForcePoseidonBoonKeepsake_Rack",
 		KillMoneyMultiplier = { BaseValue = 1 },
@@ -158,7 +158,7 @@ TraitSetData.Keepsakes = {
 	ForceApolloBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_15",
+		Icon = "Keepsake_50",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeDionysusCup",
 		InRackTitle = "ForceApolloBoonKeepsake_Rack",
 		TooltipMultiplier = { BaseValue = 1.2 },
@@ -232,7 +232,7 @@ TraitSetData.Keepsakes = {
 	ForceHestiaBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_18",
+		Icon = "Keepsake_53",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeAthenaOwl",
 		InRackTitle = "ForceHestiaBoonKeepsake_Rack",
 		MaxHealthMultiplier = 0.80,
@@ -314,7 +314,7 @@ TraitSetData.Keepsakes = {
 	ForceHephaestusBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_17",
+		Icon = "Keepsake_52",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeZeusRing",
 		InRackTitle = "ForceHephaestusBoonKeepsake_Rack",
 		HealingToArmor = { BaseValue = 0.2 },
@@ -370,7 +370,7 @@ TraitSetData.Keepsakes = {
 	ForceDemeterBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_14",
+		Icon = "Keepsake_49",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeDemeterHorn",
 		InRackTitle = "ForceDemeterBoonKeepsake_Rack",
 		ManaCostModifiers =
@@ -459,7 +459,7 @@ TraitSetData.Keepsakes = {
 	ForceAphroditeBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_16",
+		Icon = "Keepsake_51",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeAphroditeRose",
 		InRackTitle = "ForceAphroditeBoonKeepsake_Rack",
 		RarityBonus =
@@ -517,7 +517,7 @@ TraitSetData.Keepsakes = {
 	ForceHeraBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_13",
+		Icon = "Keepsake_47",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeAthenaOwl",
 		InRackTitle = "ForceHeraBoonKeepsake_Rack",
 		-- TooltipMultiplier = { BaseValue = 1.5 },
