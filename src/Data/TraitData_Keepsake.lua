@@ -521,20 +521,20 @@ TraitSetData.Keepsakes = {
 		EquipSound = "/SFX/Menu Sounds/KeepsakeAthenaOwl",
 		InRackTitle = "ForceHeraBoonKeepsake_Rack",
 		-- TooltipMultiplier = { BaseValue = 1.5 },
-		VisualActivationRequirements = 
-		{
-			{
-				{
-					PathFalse = { "CurrentRun", "Hero", "SlottedTraits", "Melee" },
-				},
-			},
-			{
-				{
-					PathFalse = { "CurrentRun", "Hero", "SlottedTraits", "Secondary" },
-				},
-			},
+		-- VisualActivationRequirements = 
+		-- {
+		-- 	{
+		-- 		{
+		-- 			PathFalse = { "CurrentRun", "Hero", "SlottedTraits", "Melee" },
+		-- 		},
+		-- 	},
+		-- 	{
+		-- 		{
+		-- 			PathFalse = { "CurrentRun", "Hero", "SlottedTraits", "Secondary" },
+		-- 		},
+		-- 	},
 
-		},
+		-- },
 		AddOutgoingDamageModifiers =
 		{
 			EmptySlotMultiplier = {
