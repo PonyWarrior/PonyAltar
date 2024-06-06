@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2024-06-06
+
 ### Changed
 
 - Ported to Hell 2 Modding format
@@ -92,7 +94,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First version of the mod!
 
-[unreleased]: https://github.com/PonyWarrior/PonyAltar/compare/0.3.6...HEAD
+[unreleased]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.0...HEAD
+[0.4.0]: https://github.com/PonyWarrior/PonyAltar/compare/0.3.6...0.4.0
 [0.3.6]: https://github.com/PonyWarrior/PonyAltar/compare/0.3.5...0.3.6
 [0.3.5]: https://github.com/PonyWarrior/PonyAltar/compare/0.3.4...0.3.5
 [0.3.4]: https://github.com/PonyWarrior/PonyAltar/compare/0.3.3...0.3.4
