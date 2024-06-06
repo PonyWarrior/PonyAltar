@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Ported to Hell 2 Modding format
+
+### Fixed
+
+- Fixed altar menu opening twice with PonyAO installed
+
 ## [0.3.6] - 2024-06-05
 
 ### Fixed

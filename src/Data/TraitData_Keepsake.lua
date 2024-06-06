@@ -1,6 +1,4 @@
-if not PonyAltar.Config.Enabled then return end
-
-TraitSetData.Keepsakes = {
+Keepsakes = {
 	BaseBoonUpgradeKeepsake =
 	{
 		InheritFrom = { "GiftTrait" },
@@ -25,6 +23,7 @@ TraitSetData.Keepsakes = {
 		}
 	},
 	AltarBoon = {
+		Name = "AltarBoon",
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
 		Icon = "GUI\\Screens\\Codex\\Icon-Unseen",
 		Slot = "Altar",
@@ -619,5 +618,10 @@ TraitSetData.Keepsakes = {
 	},
 }
 
-
-OverwriteTableKeys(TraitData, TraitSetData.Keepsakes)
+for key, keepsake in pairs(Keepsakes) do
+	if TraitData[key] then
+		OverwriteTableKeys(TraitData[key], keepsake)
+	else
+		TraitData[key] = keepsake
+	end
+end

@@ -1,10 +1,52 @@
-local mod = PonyAltar
+---@meta _
+-- globals we define are private to our plugin!
+---@diagnostic disable: lowercase-global
 
-if not mod.Config.Enabled then return end
+-- here is where your mod sets up all the things it will do.
+-- this file will not be reloaded if it changes during gameplay
+-- 	so you will most likely want to have it reference
+--	values and functions later defined in `reload.lua`.
+
+mod = modutil.mod.Mod.Register(_PLUGIN.guid)
+
+local textfile = rom.path.combine(rom.paths.Content, 'Game/Text/en/TraitText.en.sjson')
+
+local ids_to_descriptions = {
+	ForceZeusBoonKeepsake = "While you have {$Keywords.ReserveMana} Magick{!Icons.Mana}, your {$Keywords.Omega} use {#ManaFormat}{$TooltipData.ExtractData.ManaDelta:F} {#Prev}less Magick{!Icons.Mana}.",
+	ForceZeusBoonKeepsake_Inactive = "While you have {$Keywords.ReserveMana} Magick{!Icons.Mana}, your {$Keywords.Omega} use {#ManaFormat}{$TooltipData.ExtractData.ManaDelta:F} {#Prev}less Magick{!Icons.Mana}.",
+
+	ForcePoseidonBoonKeepsake = "Slain enemies drop {#MoneyFormatBold}+{$TooltipData.ExtractData.TooltipHeal:F} {!Icons.Currency}{#Prev}.",
+	ForcePoseidonBoonKeepsake_Inactive = "Slain enemies drop {#MoneyFormatBold}+{$TooltipData.ExtractData.TooltipHeal:F} {!Icons.Currency}{#Prev}.",
+
+	ForceApolloBoonKeepsake = "Extends the invulnerability period of your {$Keywords.Dash} by {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipMultiplier:F}{#Prev}.",
+	ForceApolloBoonKeepsake_Inactive = "Extends the invulnerability period of your {$Keywords.Dash} by {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipMultiplier:F}{#Prev}.",
+
+	ForceHestiaBoonKeepsake = "All your damage is increased by {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipDamage:F} {#Prev}, but you have {#PenaltyFormat}{$TooltipData.ExtractData.HealthPenalty:P}{#Prev}{!Icons.HealthDown}.",
+	ForceHestiaBoonKeepsake_Inactive = "All your damage is increased by {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipDamage:F} {#Prev}, but you have {#PenaltyFormat}{$TooltipData.ExtractData.HealthPenalty:P}{#Prev}{!Icons.HealthDown}.",
+
+	ForceHephaestusBoonKeepsake = "You gain {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipArmor:F} {#Prev} of all {!Icons.HealthUp} rewards as {!Icons.ArmorTotal}.",
+	ForceHephaestusBoonKeepsake_Inactive = "You gain {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipArmor:F} {#Prev} of all {!Icons.HealthUp} rewards as {!Icons.ArmorTotal}.",
+
+	ForceAphroditeBoonKeepsake = "Increases your chances to receive a {$Keywords.GodBoon} of higher {$Keywords.Rarity}. {#RareFormat}Rare {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.RareBonus:P} {#Prev}, {#EpicFormat}Epic {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.EpicBonus:P} {#Prev}and {#DuoFormat}Duo {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.DuoBonus:P} {#Prev}.",
+	ForceAphroditeBoonKeepsake_Inactive = "Increases your chances to receive a {$Keywords.GodBoon} of higher {$Keywords.Rarity}. {#RareFormat}Rare {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.RareBonus:P} {#Prev}, {#EpicFormat}Epic {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.EpicBonus:P} {#Prev}and {#DuoFormat}Duo {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.DuoBonus:P} {#Prev}.",
+
+	ForceDemeterBoonKeepsake = "While under {#BoldFormatGraft}{$TooltipData.ExtractData.Health:F}{#Prev}{!Icons.Health}, your {$Keywords.Omega} use {#ManaFormat}{$TooltipData.ExtractData.ManaDelta:F} {#Prev}less Magick{!Icons.Mana}.",
+	ForceDemeterBoonKeepsake_Inactive = "While under {#BoldFormatGraft}{$TooltipData.ExtractData.Health:F}{#Prev}{!Icons.Health}, your {$Keywords.Omega} use {#ManaFormat}{$TooltipData.ExtractData.ManaDelta:F} {#Prev}less Magick{!Icons.Mana}.",
+
+	ForceHeraBoonKeepsake = "Your {$Keywords.Attack} and {$Keywords.Special} each deal {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipBonus:P} {#Prev}damage while not empowered by a {$Keywords.GodBoon}.",
+	ForceHeraBoonKeepsake_Inactive = "Your {$Keywords.Attack} and {$Keywords.Special} each deal {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipBonus:P} {#Prev}damage while not empowered by a {$Keywords.GodBoon}.",
+}
+
+sjson.hook(textfile, function(sjsonData)
+	for _, v in ipairs(sjsonData.Texts) do
+		local description = ids_to_descriptions[v.Id]
+		if description then v.Description = description end
+	end
+end)
 
 table.insert(HubRoomData.Hub_PreRun.StartUnthreadedEvents,
 	{
-		FunctionName = "PonyAltar.SpawnAltar"
+		FunctionName = _PLUGIN.guid .. '.' .. 'SpawnAltar'
 	})
 
 ModUtil.Table.Merge(ScreenData, {
@@ -78,7 +120,7 @@ ModUtil.Table.Merge(ScreenData, {
 						OffsetY = ScreenCenterY - 70,
 						Data =
 						{
-							OnPressedFunctionName = "PonyAltar.ClosePonyAltar",
+							OnPressedFunctionName = _PLUGIN.guid .. '.' .. 'ClosePonyAltar',
 							ControlHotkeys = { "Cancel", },
 						},
 					},
@@ -101,7 +143,7 @@ function mod.SpawnAltar()
 		-- Card altar
 		local spawnId = 589766
 		local altar = DeepCopyTable(ObstacleData.GiftRack)
-		altar.OnUsedFunctionName = "PonyAltar.OpenAltarMenu"
+		altar.OnUsedFunctionName = _PLUGIN.guid .. '.' .. 'OpenAltarMenu'
 		altar.ObjectId = SpawnObstacle({
 			Name = "GiftRack",
 			Group = "FX_Terrain",
@@ -452,6 +494,5 @@ end)
 
 ModUtil.Path.Wrap("KeepsakeScreenClose", function(base, ...)
 	base(...)
-	-- rom.data.reload_game_data()
 	mod.OpenAltarMenu()
 end)

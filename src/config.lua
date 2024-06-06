@@ -1,5 +1,3 @@
-local config = {
-	Enabled = true,
+return {
+	enabled = true,
 }
-PonyAltar.Config = config
-return config
