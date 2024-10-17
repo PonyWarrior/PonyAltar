@@ -34,6 +34,7 @@ ModUtil.Table.Merge(ScreenData, {
 			"ChaosGift01",
 			"SeleneGift01",
 			"ArtemisGift01",
+			"AthenaGift01",
 		},
 
 		ComponentData =
@@ -184,6 +185,9 @@ function mod.OpenAltarMenu()
 			elseif godName == "Artemis" then
 				upgradeName = "NPC_Artemis_01"
 				keepsakeTraitName = "LowHealthCritKeepsake"
+			elseif godName == "Athena" then
+				upgradeName = "NPC_Athena_01"
+				keepsakeTraitName = "AthenaEncounterKeepsake"
 			elseif godName == "Chaos" then
 				upgradeName = "TrialUpgrade"
 				keepsakeTraitName = "RandomBlessingKeepsake"
@@ -279,14 +283,14 @@ function mod.EquipAltarBoon()
 			mod.UnequipAltarBoon()
 		end
 		local altarTrait = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = "AltarBoon" })
-		if mod.Data.SelectedGod ~= "SpellDrop" and mod.Data.SelectedGod ~= "NPC_Artemis_01" and mod.Data.SelectedGod ~= "TrialUpgrade" then
+		if mod.Data.SelectedGod ~= "SpellDrop" and mod.Data.SelectedGod ~= "NPC_Artemis_01" and mod.Data.SelectedGod ~= "NPC_Athena_01" and mod.Data.SelectedGod ~= "TrialUpgrade" then
 			altarTrait.ForceBoonName = mod.Data.SelectedGod
 			altarTrait.RarityUpgradeData.LootName = mod.Data.SelectedGod
 			altarTrait.RarityUpgradeData.MaxRarity = mod.Data.RarifyLevel
 			AddTraitToHero({ TraitData = altarTrait, SkipNewTraitHighlight = true })
 		elseif mod.Data.SelectedGod == "SpellDrop" then
 
-		elseif mod.Data.SelectedGod == "NPC_Artemis_01" then
+		elseif mod.Data.SelectedGod == "NPC_Artemis_01" or mod.Data.SelectedGod == "NPC_Athena_01" then
 
 		elseif mod.Data.SelectedGod == "TrialUpgrade" then
 			altarTrait.RarityUpgradeData.LootName = mod.Data.SelectedGod
@@ -450,6 +454,20 @@ ModUtil.Path.Wrap("ChooseEncounter", function(base, currentRun, room, args)
 			if not room.Name:find("Opening") and not room.Name:find("Intro") then
 				print("Forcing Artemis")
 				ForceNextEncounter = "ArtemisCombat" .. roomSetName
+				mod.Data.ForceBoonUsesLeft = 0
+			end
+		end
+	elseif mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == "NPC_Athena_01" and mod.Data.ForceBoonUsesLeft > 0 then
+		local roomSetName = ""
+		if room.NextRoomSet then
+			roomSetName = GetRandomValue(room.NextRoomSet)
+		elseif room.RoomSetName then
+			roomSetName = room.RoomSetName
+		end
+		if roomSetName == "P" then
+			if not room.Name:find("Opening") and not room.Name:find("Intro") then
+				print("Forcing Athena")
+				ForceNextEncounter = "AthenaCombat" .. roomSetName
 				mod.Data.ForceBoonUsesLeft = 0
 			end
 		end
