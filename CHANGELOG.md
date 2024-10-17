@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.2] - 2024-10-17
+
 ### Added
 
 - Added Athena
@@ -104,7 +106,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First version of the mod!
 
-[unreleased]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.1...HEAD
+[unreleased]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.2...HEAD
+[0.4.2]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.1...0.4.2
 [0.4.1]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.0...0.4.1
 [0.4.0]: https://github.com/PonyWarrior/PonyAltar/compare/0.3.6...0.4.0
 [0.3.6]: https://github.com/PonyWarrior/PonyAltar/compare/0.3.5...0.3.6
