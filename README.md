@@ -31,4 +31,4 @@ Interact with the altar or close the keepsake rack to open the menu, showing you
 
 ### Additional features
 
-You can force Chaos, Selene and Artemis to spawn like regular gods. Artemis will only appear in Erebus, Oceanus and Ephyra however.
+You can force Chaos, Selene, Artemis and Athena, to spawn like regular gods. Artemis will only appear in Erebus, Oceanus and Ephyra however.

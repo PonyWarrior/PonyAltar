@@ -453,7 +453,7 @@ ModUtil.Path.Wrap("ChooseEncounter", function(base, currentRun, room, args)
 		if roomSetName == "G" or roomSetName == "N" or roomSetName == "F" then
 			if not room.Name:find("Opening") and not room.Name:find("Intro") then
 				print("Forcing Artemis")
-				ForceNextEncounter = "ArtemisCombat" .. roomSetName
+				game.ForceNextEncounter = "ArtemisCombat" .. roomSetName
 				mod.Data.ForceBoonUsesLeft = 0
 			end
 		end
@@ -467,7 +467,7 @@ ModUtil.Path.Wrap("ChooseEncounter", function(base, currentRun, room, args)
 		if roomSetName == "P" then
 			if not room.Name:find("Opening") and not room.Name:find("Intro") then
 				print("Forcing Athena")
-				ForceNextEncounter = "AthenaCombat" .. roomSetName
+				game.ForceNextEncounter = "AthenaCombat" .. roomSetName
 				mod.Data.ForceBoonUsesLeft = 0
 			end
 		end
