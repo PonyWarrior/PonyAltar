@@ -112,7 +112,7 @@ function mod.SpawnAltar()
 		altar.OnUsedFunctionName = _PLUGIN.guid .. '.' .. 'OpenAltarMenu'
 		altar.ObjectId = SpawnObstacle({
 			Name = "GiftRack",
-			Group = "FX_Terrain",
+			Group = "Standing",
 			DestinationId = spawnId,
 			AttachedTable =
 				altar,
