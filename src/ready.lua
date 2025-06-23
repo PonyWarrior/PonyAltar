@@ -328,7 +328,7 @@ ModUtil.Path.Wrap("EquipLastAwardTrait", function(base, ...)
 	mod.EquipAltarBoon()
 end, mod)
 
-ModUtil.Path.Wrap("BuildMetaupgradeCache", function(base, ...)
+ModUtil.Path.Wrap("EquipMetaUpgrades", function(base, ...)
 	base(...)
 	mod.EquipAltarBoon()
 end, mod)
