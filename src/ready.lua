@@ -277,8 +277,12 @@ function mod.SelectGod(screen, button)
 	end
 end
 
+function mod.IsNewGameFirstRun()
+	return IsEmpty(GameState.UseRecord)
+end
+
 function mod.EquipAltarBoon()
-	if mod.Data.SelectedGod ~= nil then
+	if not mod.IsNewGameFirstRun() and mod.Data.SelectedGod ~= nil then
 		if HeroHasTrait("AltarBoon") then
 			mod.UnequipAltarBoon()
 		end
@@ -429,7 +433,7 @@ local requirements = {
 }
 
 ModUtil.Path.Wrap("SetupRoomReward", function(base, currentRun, room, previouslyChosenRewards, args)
-	if not room.ForceLootName and mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == "SpellDrop" and mod.Data.ForceBoonUsesLeft > 0 then
+	if not mod.IsNewGameFirstRun() and not room.ForceLootName and mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == "SpellDrop" and mod.Data.ForceBoonUsesLeft > 0 then
 		local rewardname = "SpellDrop"
 		if not IsGameStateEligible(CurrentRun, requirements) then
 			rewardname = "TalentDrop"
@@ -443,7 +447,7 @@ ModUtil.Path.Wrap("SetupRoomReward", function(base, currentRun, room, previously
 end)
 
 ModUtil.Path.Wrap("ChooseEncounter", function(base, currentRun, room, args)
-	if mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == "NPC_Artemis_01" and mod.Data.ForceBoonUsesLeft > 0 then
+	if not mod.IsNewGameFirstRun() and mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == "NPC_Artemis_01" and mod.Data.ForceBoonUsesLeft > 0 then
 		local roomSetName = ""
 		if room.NextRoomSet then
 			roomSetName = GetRandomValue(room.NextRoomSet)
