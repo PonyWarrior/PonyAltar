@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.5] - 2025-07-03
+
 ### Changed
 
 - Fixed crashing on a new save
@@ -123,7 +125,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First version of the mod!
 
-[unreleased]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.4...HEAD
+[unreleased]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.5...HEAD
+[0.4.5]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.4...0.4.5
 [0.4.4]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.3...0.4.4
 [0.4.3]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.2...0.4.3
 [0.4.2]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.1...0.4.2
