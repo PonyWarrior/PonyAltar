@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2025-10-29
+
 ### Added
 
 - Ares added to altar
@@ -132,7 +134,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First version of the mod!
 
-[unreleased]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.5...HEAD
+[unreleased]: https://github.com/PonyWarrior/PonyAltar/compare/0.5.0...HEAD
+[0.5.0]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.5...0.5.0
 [0.4.5]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.4...0.4.5
 [0.4.4]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.3...0.4.4
 [0.4.3]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.2...0.4.3
