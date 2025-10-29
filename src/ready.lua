@@ -35,6 +35,7 @@ ModUtil.Table.Merge(ScreenData, {
 			"SeleneGift01",
 			"ArtemisGift01",
 			"AthenaGift01",
+			"AresGift01"
 		},
 
 		ComponentData =
@@ -57,7 +58,8 @@ ModUtil.Table.Merge(ScreenData, {
 
 			Background =
 			{
-				AnimationName = "Box_FullScreen",
+				--PonyMenu package required
+				Graphic = "Box_FullScreen",
 				GroupName = "Combat_Menu",
 				X = ScreenCenterX,
 				Y = ScreenCenterY,
@@ -293,8 +295,67 @@ function mod.EquipAltarBoon()
 			altarTrait.RarityUpgradeData.MaxRarity = mod.Data.RarifyLevel
 			AddTraitToHero({ TraitData = altarTrait, SkipNewTraitHighlight = true })
 		elseif mod.Data.SelectedGod == "SpellDrop" then
+			local count = 3
+			if mod.Data.RarifyLevel == 2 then
+				count = 4
+			elseif mod.Data.RarifyLevel == 3 then
+				count = 5
+			elseif mod.Data.RarifyLevel == 4 then
+				count = 7
+			end
+			altarTrait.ForceBoonName = nil
+			altarTrait.RarityUpgradeData = nil
+			altarTrait.AcquireFunctionName = "AddTalentPoints"
+			altarTrait.AcquireFunctionArgs = {
+				Count = count
+			}
+			AddTraitToHero({ TraitData = altarTrait, SkipNewTraitHighlight = true })
 
-		elseif mod.Data.SelectedGod == "NPC_Artemis_01" or mod.Data.SelectedGod == "NPC_Athena_01" then
+		elseif mod.Data.SelectedGod == "NPC_Artemis_01" then
+
+		elseif mod.Data.SelectedGod == "NPC_Athena_01" then
+			altarTrait.RemainingUses = 1
+			altarTrait.SpeakerNames = { "Athena" }
+			altarTrait.PackageNames = { "NPC_Athena_01" }
+			altarTrait.Using =
+			{
+				SpawnUnit = "NPC_Athena_01",
+				Animations =
+				{
+					"Athena_Salute",
+					"Athena_Blessing",
+					"Athena_Brooding",
+					"Athena_Proud_Start",
+					"Athena_Proud_End",
+					"AthenaUnequipSparkle",
+				},
+			}
+			altarTrait.UniqueEncounterArgs =
+			{
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "BiomeDepthCache" },
+						Comparison = ">=",
+						Value = 2,
+					},
+					{
+						PathFalse = { "CurrentRun", "CurrentRoom", "BlockAthenaEncounterKeepsake" }
+					},
+					NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+				},
+				EncounterThreadedFunctions = 
+				{
+					FunctionName = "HandleAthenaSpawn",
+					Args =
+					{
+						RarityLevelBonus = mod.Data.RarifyLevel,
+						FromTrait = "AltarBoon",
+						LoadPackages = { "Athena" },
+					},
+				}
+			}
+			AddTraitToHero({ TraitData = altarTrait, SkipNewTraitHighlight = true })
 
 		elseif mod.Data.SelectedGod == "TrialUpgrade" then
 			altarTrait.RarityUpgradeData.LootName = mod.Data.SelectedGod
@@ -461,20 +522,7 @@ ModUtil.Path.Wrap("ChooseEncounter", function(base, currentRun, room, args)
 				mod.Data.ForceBoonUsesLeft = 0
 			end
 		end
-	elseif mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == "NPC_Athena_01" and mod.Data.ForceBoonUsesLeft > 0 then
-		local roomSetName = ""
-		if room.NextRoomSet then
-			roomSetName = GetRandomValue(room.NextRoomSet)
-		elseif room.RoomSetName then
-			roomSetName = room.RoomSetName
-		end
-		if roomSetName == "P" then
-			if not room.Name:find("Opening") and not room.Name:find("Intro") then
-				print("Forcing Athena")
-				game.ForceNextEncounter = "AthenaCombat" .. roomSetName
-				mod.Data.ForceBoonUsesLeft = 0
-			end
-		end
+
 	end
 	return base(currentRun, room, args)
 end)

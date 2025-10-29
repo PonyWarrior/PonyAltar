@@ -28,7 +28,10 @@ Interact with the altar or close the keepsake rack to open the menu, showing you
 - Hephaestus : You gain 20/35/50/75% of all Max Health rewards as Armor.
 - Hestia : All your damage is increased by 5/10/15/20%, but you have -20% health.
 - Hera : Your Attack and Special each deal +50/75/100/150% damage while not empowered by a Boon.
+- Ares : After hitting a foe multiple times inflict a Bloody Wound upon them. You deal +10/20/30/40% damage to foes suffering from a Bloody Wound.
+- Athena : While you have this Keepsake equipped your Death Defiance will summon a hail of spears, instantly slaying all foes and deal 5/10/15/20% Max HP damage to any Boss. Multiple uses against the same Boss deal significantly reduced damage.
+- Selene : You are blessed by the Moon and gain strength from it as it waxes and wanes. Each room you gain the current Moon's Boon, which changes after each room as the Moon goes through its 4 major and 4 minor phases. The Moon's Boons are of Common/Rare/Epic/Heroic Rarity.
 
 ### Additional features
 
-You can force Chaos, Selene, Artemis and Athena, to spawn like regular gods. Artemis will only appear in Erebus, Oceanus and Ephyra however.
+You can force Chaos, Selene, Artemis and Athena, to spawn like regular gods. Some can only appear in certain biomes or have special requirements like vanilla however.

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Ares added to altar
+- Ares keepsake added
+- Athena keepsake added
+- Selene keepsake added
+
 ## [0.4.5] - 2025-07-03
 
 ### Changed
