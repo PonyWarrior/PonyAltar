@@ -7,7 +7,7 @@ local ids_to_descriptions = {
 
 	ForceApolloBoonKeepsake = "Extends the invulnerability period of your {$Keywords.Dash} by {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipMultiplier:F}{#Prev}.",
 
-	ForceHestiaBoonKeepsake = "During each {$Keywords.EncounterAlt} after a delay your burn the ground beneath your feet, creating {#UpgradeFormat}{$TooltipData.ExtractData.ProjectileAmount} {#Prev} {#BoldFormatGraft} Lava Pools{#Prev}.",
+	ForceHestiaBoonKeepsake = "During each {$Keywords.EncounterAlt} after a delay you burn the ground beneath your feet, creating {#UpgradeFormat}{$TooltipData.ExtractData.ProjectileAmount} {#Prev} {#BoldFormatGraft} Lava Pools{#Prev}.",
 
 	ForceHephaestusBoonKeepsake = "You gain {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipArmor:F} {#Prev} of all {!Icons.HealthUp} rewards as {!Icons.ArmorTotal}.",
 

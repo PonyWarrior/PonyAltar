@@ -30,7 +30,7 @@ For Selene, selecting her also grants you the additional path of star points the
 - Apollo : Extends the invulnerability period of your dash by 20/35/50/65%.
 - Aphrodite : Increases your chances to receive a Boon of higher Rarity. Rare +10/20/30/40%, Epic +3/6/10/14% and Duo +2/4/6/8%.
 - Hephaestus : You gain 20/40/60/80% of all Max Health rewards as Armor.
-- Hestia : All your damage is increased by 5/10/15/20%, but you have -20% health.
+- Hestia : During each Encounter after a delay you burn the ground beneath your feet, creating 1/2/3/4 Lava Pools.
 - Hera : You can purge any God's Boon (except Hera's) into a Giga Pom of Power, 1/2/3/4 times this night.
 - Ares : After hitting a foe multiple times inflict a Bloody Wound upon them. You deal +10/20/30/40% damage to foes suffering from a Bloody Wound.
 - Athena : While you have this Keepsake equipped your Death Defiance will summon a hail of spears, instantly slaying all foes and dealing 5/10/15/20% Max HP damage to any Boss. Multiple uses against the same Boss deal significantly reduced damage.
