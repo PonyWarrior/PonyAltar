@@ -1,5 +1,6 @@
 return {
 	enabled = true,
+	DisableFatesWhim = true,
 	Ares = {
 		BloodyWoundOrigination = true,
 		StaffHits = 6,

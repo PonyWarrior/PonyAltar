@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Selene can no longer be forced in Chaos Realm
+- Selene keepsake first moon phase is now random
+- Selene keepsakeFull Moon, Waning Gibbous changed to summon a meteor on encounter start
+- Selene keepsake New Moon, Waxing Crescent changed to block a number of hits for the encounter
+- Selene keepsake Last Quarter, Waning Crescent now has a 1s cooldown between Dark procs
+- Demeter keepsake now gives a random assortment of elemental essences after each encounter
+- Hera keepsake now lets you turn god boons into giga poms
+- Hestia keepsake now spawns lava pools each encounter
+- Hephaestus keepsake slightly buffed
+
+### Added
+
+- Fates Whim is now disabled, can be re-enabled in config
+- Boon tray can now be accessed in the Altar screen
+- Added an incantation to unlock the altar
+
 ## [0.5.0] - 2025-10-29
 
 ### Added

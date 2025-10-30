@@ -14,7 +14,6 @@ local AresWeaponHitCount = {
 		["WeaponSuit"] = config.Ares.SuitHits,
 }
 
-
 function mod.CheckAresWound(args, attacker, victim, triggerArgs)
     --Pretty ghetto but works, @todo make that properly
     if EffectData.AresBloodyWound == nil then
@@ -106,7 +105,8 @@ function mod.SeleneKeepsake(hero, args)
     end
 
     if CurrentRun.MoonPhase == nil then
-        CurrentRun.MoonPhase = 1
+        local rng = GetGlobalRng()
+        CurrentRun.MoonPhase = rng:Random(1, 8)
     end
 
     local moonTrait = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = "Moon_" .. CurrentRun.MoonPhase, Rarity = GetRarityKey(args.BlessingRarity) })
@@ -129,6 +129,9 @@ function mod.SeleneKeepsakePresentation(name)
 end
 
 function mod.MoonInvisibility(unit, args, triggerArgs)
+	if not CheckCooldown( "MoonInvisibility", args.Cooldown ) then
+		return
+	end
 	local dataProperties = DeepCopyTable( EffectData[args.EffectName].EffectData )
 	dataProperties.Duration = args.Duration
 	ApplyEffect({ DestinationId = CurrentRun.Hero.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = args.EffectName, DataProperties = dataProperties })
@@ -139,6 +142,97 @@ function mod.CheckMoonInvisibility(args, attacker, victim, triggerArgs)
     if attacker == CurrentRun.Hero then
         if HasEffect({ Id = CurrentRun.Hero.ObjectId, EffectName = "HadesInvisible" }) then
             ClearEffect({ Id = CurrentRun.Hero.ObjectId, Name = "HadesInvisible" })
+            TriggerCooldown("MoonInvisibility")
         end
     end
+end
+
+local elementTable = {
+    [1] = "AirEssence",
+    [2] = "FireEssence",
+    [3] = "EarthEssence",
+    [4] = "WaterEssence"
+}
+
+function mod.DemeterKeepsake(traitData, args)
+    local rng = GetGlobalRng()
+    local elements = {}
+    for i = 1, args.ItemCount do
+        local random = rng:Random(1, 4)
+        local traitName = elementTable[random]
+        local elementTrait = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName})
+        AddTraitToHero({ TraitData = elementTrait, SkipActivatedTraitUpdate = true })
+        table.insert(elements, traitName)
+    end
+
+    local elementIconSpacing = 80
+    local numElements = TableLength(elements)
+    local elementOffsetX = elementIconSpacing * -0.5 * (numElements - 1)
+
+    for _, element in pairs(elements) do
+        thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ElementGranted_CombatText", ShadowScaleX = 1.5, SkipRise = true, SkipFlash = false,
+        Duration = 1.8, OffsetX = elementOffsetX, OffsetY = 80, LuaKey = "TempTextData", LuaValue = { Name = element } } )
+        elementOffsetX = elementOffsetX + elementIconSpacing
+    end
+
+end
+
+function mod.SetupMoonShield(hero, args)
+    if MapState.BossShieldTriggers == 0 then
+        MapState.BossShieldTriggers = args.ShieldHits
+        MapState.BossShieldFx = args.ShieldFx
+        CreateAnimation({ Name = args.ShieldFx, DestinationId = CurrentRun.Hero.ObjectId })
+    end
+end
+
+function mod.SetupMoonBlast(hero, args)
+    thread(mod.DoMoonBlast, hero, args)
+end
+
+function mod.DoMoonBlast(hero, args)
+    wait(args.Delay)
+    local nearestEnemyTargetIds = GetClosestIds({ Id = CurrentRun.Hero.ObjectId, DestinationName = "EnemyTeam", IgnoreInvulnerable = true, IgnoreHomingIneligible = true, Distance = 9999 })
+    local targetId = GetFirstKey(nearestEnemyTargetIds)
+    local dataProperties = {
+        Fuse = 4,
+        Damage = args.Damage,
+        DamageRadius = args.Radius
+    }
+    CreateProjectileFromUnit({ Name = "ProjectileSpellMeteor", Id = CurrentRun.Hero.ObjectId, DestinationId = targetId, DataProperties = dataProperties })
+end
+
+function mod.CanHeraPurge(reward)
+    if not reward.GodLoot or reward.SpeakerName == "Hera" or (reward.ResourceCosts ~= nil and HasResourceCost( reward.ResourceCosts )) or GetTotalHeroTraitValue( "HeraBoonConversionUses" ) <= 0 then
+        return false
+    end
+    reward.GoldConversionEligible = false
+    reward.UseTextTalkAndSpecial = "UseLootAndPurge"
+    reward.UseTextTalkGiftAndSpecial = "UseLootGiftAndPurge"
+    return true
+end
+
+function mod.CanSpecialInteract_wrap(base, source)
+    if mod.CanHeraPurge(source) then
+        return true
+    else
+        return base(source)
+    end
+end
+
+function mod.SetupHestiaKeepsake(hero, args)
+    thread(mod.DoHestiaKeepsake, hero, args)
+end
+
+function mod.DoHestiaKeepsake(hero, args)
+    wait(args.Delay)
+    local dataProperties = {
+        DamageRadius = 450,
+
+    }
+
+    for i = 1, args.ProjectileAmount do
+        wait(1)
+        CreateProjectileFromUnit({ Name = "DevotionHestiaFire", Id = CurrentRun.Hero.ObjectId, FireFromTarget = true, DataProperties = dataProperties })
+    end
+
 end

@@ -9,6 +9,42 @@
 
 mod = modutil.mod.Mod.Register(_PLUGIN.guid)
 
+Incantations.addIncantation({
+	Id = "PonyAltarIncantation",
+	Name = "Altar of the Gods",
+	Description = "Unlocks the Altar of the Gods, letting you force the appearance of important characters each night.",
+	FlavorText = "No one knows where the Altar came from, only a rumor of an otherwordly... horse?",
+	WorldUpgradeData = {
+		InheritFrom = { "DefaultMinorItem", "DefaultCriticalItem" },
+		Icon = "GUI\\Icons\\RandomLoot",
+		Cost =
+		{
+			GiftPoints = 10,
+		},
+		GameStateRequirements =
+		{
+			-- number of Keepsake unlocks required
+			{
+				Path = { "GameState", "GiftPresentation" },
+				UseLength = true,
+				Comparison = ">=",
+				Value = 9,
+			},
+		},
+	},
+})
+
+local runOnce = false
+
+OnAnyLoad{
+	function (triggerArgs)
+		if not GameState.WorldUpgrades.PonyAltarIncantation and not runOnce then
+			runOnce = true
+			thread( InCombatTextArgs, { Text = "AltarIncantationNotDone", TargetId = CurrentRun.Hero.ObjectId, SkipRise = true, SkipFlash = true, SkipShadow = true, Duration = 5.0, OffsetY = -160, PreDelay = 2.0 } )
+		end
+	end
+}
+
 table.insert(HubRoomData.Hub_PreRun.StartUnthreadedEvents,
 	{
 		FunctionName = _PLUGIN.guid .. '.' .. 'SpawnAltar'
@@ -16,6 +52,7 @@ table.insert(HubRoomData.Hub_PreRun.StartUnthreadedEvents,
 
 ModUtil.Table.Merge(ScreenData, {
 	PonyAltar = {
+		AllowAdvancedTooltip = true,
 		Components = {},
 		OpenSound = "/SFX/Menu Sounds/HadesLocationTextAppear",
 		Name = "PonyAltar",
@@ -82,7 +119,7 @@ ModUtil.Table.Merge(ScreenData, {
 					CloseButton =
 					{
 						Graphic = "ButtonClose",
-						GroupName = "Combat_Menu_TraitTray",
+						GroupName = "Combat_Menu",
 						Scale = 0.7,
 						OffsetX = 0,
 						OffsetY = ScreenCenterY - 70,
@@ -91,6 +128,23 @@ ModUtil.Table.Merge(ScreenData, {
 							OnPressedFunctionName = _PLUGIN.guid .. '.' .. 'ClosePonyAltar',
 							ControlHotkeys = { "Cancel", },
 						},
+					},
+					TraitTrayButton =
+					{
+						Graphic = "ContextualActionButton",
+						GroupName = "Combat_Menu",
+						Scale = 0.7,
+						OffsetX = -100,
+						OffsetY = ScreenCenterY - 70,
+						Data =
+						{
+							OnMouseOverFunctionName = "MouseOverContextualAction",
+							OnMouseOffFunctionName = "MouseOffContextualAction",
+							OnPressedFunctionName = "UpgradeChoiceScreenOpenTraitTray",
+							ControlHotkeys = { "AdvancedTooltip", },
+						},
+						Text = "Menu_OpenTraitTray",
+						TextArgs = UIData.ContextualButtonFormatRight,
 					},
 				}
 			},
@@ -106,8 +160,7 @@ local BoonColors = {
 }
 
 function mod.SpawnAltar()
-	local unlocked = true
-	if unlocked then
+	if GameState.WorldUpgrades.PonyAltarIncantation then
 		-- Card altar
 		local spawnId = 589766
 		local altar = DeepCopyTable(ObstacleData.GiftRack)
@@ -141,7 +194,7 @@ function mod.OpenAltarMenu()
 	OnScreenOpened(screen)
 	CreateScreenFromData(screen, screen.ComponentData)
 
-	components.GodTextbox = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray" })
+	components.GodTextbox = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu" })
 	Attach({ Id = components.GodTextbox.Id, DestinationId = components.Background.Id, OffsetX = 0, OffsetY = 300 })
 	CreateTextBox({
 		Id = components.GodTextbox.Id,
@@ -208,7 +261,7 @@ function mod.OpenAltarMenu()
 					-- X = screen.RowStartX + 200,
 					-- Y = screen.RowStartY - 500,
 					Scale = 1.0,
-					Group = "Combat_Menu_TraitTray",
+					Group = "Combat_Menu",
 					Color = BoonColors[level]
 				})
 				components[buttonKey].Image = key
@@ -222,7 +275,7 @@ function mod.OpenAltarMenu()
 					-- X = screen.RowStartX + 200,
 					-- Y = screen.RowStartY - 500,
 					Scale = 1.2,
-					Group = "Combat_Menu_TraitTray"
+					Group = "Combat_Menu"
 				})
 
 				SetThingProperty({ Property = "Ambient", Value = 0.0, DestinationId = components[key].Id })
@@ -244,7 +297,7 @@ function mod.OpenAltarMenu()
 	end
 	--
 
-	SetConfigOption({ Name = "ExclusiveInteractGroup", Value = "Combat_Menu_TraitTray" })
+	-- SetConfigOption({ Name = "ExclusiveInteractGroup", Value = "Combat_Menu_TraitTray" })
 	screen.KeepOpen = true
 	HandleScreenInput(screen)
 end
@@ -305,10 +358,7 @@ function mod.EquipAltarBoon()
 			end
 			altarTrait.ForceBoonName = nil
 			altarTrait.RarityUpgradeData = nil
-			altarTrait.AcquireFunctionName = "AddTalentPoints"
-			altarTrait.AcquireFunctionArgs = {
-				Count = count
-			}
+			altarTrait.TalentPointCount = count
 			AddTraitToHero({ TraitData = altarTrait, SkipNewTraitHighlight = true })
 
 		elseif mod.Data.SelectedGod == "NPC_Artemis_01" then
@@ -494,7 +544,7 @@ local requirements = {
 }
 
 ModUtil.Path.Wrap("SetupRoomReward", function(base, currentRun, room, previouslyChosenRewards, args)
-	if not mod.IsNewGameFirstRun() and not room.ForceLootName and mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == "SpellDrop" and mod.Data.ForceBoonUsesLeft > 0 then
+	if not mod.IsNewGameFirstRun() and not room.ForceLootName and mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == "SpellDrop" and mod.Data.ForceBoonUsesLeft > 0 and room.BiomeName ~= "Secrets"  then
 		local rewardname = "SpellDrop"
 		if not IsGameStateEligible(CurrentRun, requirements) then
 			rewardname = "TalentDrop"
@@ -508,7 +558,7 @@ ModUtil.Path.Wrap("SetupRoomReward", function(base, currentRun, room, previously
 end)
 
 ModUtil.Path.Wrap("ChooseEncounter", function(base, currentRun, room, args)
-	if not mod.IsNewGameFirstRun() and mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == "NPC_Artemis_01" and mod.Data.ForceBoonUsesLeft > 0 then
+	if not mod.IsNewGameFirstRun() and mod.Data.SelectedGod ~= nil and mod.Data.SelectedGod == "NPC_Artemis_01" and mod.Data.ForceBoonUsesLeft > 0 and room.BiomeName ~= "Secrets" then
 		local roomSetName = ""
 		if room.NextRoomSet then
 			roomSetName = GetRandomValue(room.NextRoomSet)
@@ -529,5 +579,68 @@ end)
 
 ModUtil.Path.Wrap("KeepsakeScreenClose", function(base, ...)
 	base(...)
-	mod.OpenAltarMenu()
+	if GameState.WorldUpgrades.PonyAltarIncantation then
+		mod.OpenAltarMenu()
+	end
 end)
+
+if config.DisableFatesWhim then
+	ModUtil.Path.Override("IsFateValid", function ()
+		return true
+	end)
+
+	ModUtil.Path.Override("PreRunIsFateValid", function ()
+		return true
+	end)
+end
+
+ModUtil.Path.Wrap("CanSpecialInteract", function (base, source)
+	return mod.CanSpecialInteract_wrap(base, source)
+end)
+
+OnControlPressed{ "SpecialInteract",
+	function( triggerArgs )
+
+		if not IsEmpty( ActiveScreens ) then
+			return
+		end
+
+		local target = triggerArgs.UseTarget
+		if target ~= nil and CanSpecialInteract( target ) then
+			EndAutoSprint({ Halt = true, EndWeapon = true })
+
+			if mod.CanHeraPurge( target ) and IsUseable({ Id = target.ObjectId }) then
+				UseableOff({ Id = target.ObjectId })
+
+				HideUseButton( target.ObjectId, target )
+				if CurrentRun.CurrentRoom.Encounter ~= nil and CurrentRun.CurrentRoom.Encounter.RewardsToRestore ~= nil then
+					CurrentRun.CurrentRoom.Encounter.RewardsToRestore[target.ObjectId] = nil
+				end
+
+				local loot = CreateLoot({ Name = "StackUpgradeTriple", SpawnPoint = target.ObjectId })
+				PlaySound({ Name = "/SFX/HeraBoonChoirQuake", Id = loot.ObjectId })
+
+				if MapState.RoomRequiredObjects[target.ObjectId] then
+					MapState.RoomRequiredObjects[target.ObjectId] = nil
+					MapState.RoomRequiredObjects[loot.ObjectId] = loot
+				end
+
+				Destroy({ Id = target.ObjectId })
+				if HeroHasTrait("ForceHeraBoonKeepsake") then
+					local trait = GetHeroTrait("ForceHeraBoonKeepsake")
+					trait.HeraBoonConversionUses = trait.HeraBoonConversionUses - 1
+					UpdateTraitNumber( trait )
+					if trait.HeraBoonConversionUses <= 0 and trait.ZeroBonusTrayText then
+						trait.CustomTrayText = trait.ZeroBonusTrayText
+					end
+				end
+
+				wait( 0.2 )
+				if CheckRoomExitsReady( CurrentRun.CurrentRoom ) then
+					UnlockRoomExits( CurrentRun, CurrentRun.CurrentRoom )
+				end
+			end
+		end
+
+	end
+}

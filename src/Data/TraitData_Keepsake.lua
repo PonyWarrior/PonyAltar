@@ -2,31 +2,22 @@ local textfile = rom.path.combine(rom.paths.Content, 'Game/Text/en/TraitText.en.
 
 local ids_to_descriptions = {
 	ForceZeusBoonKeepsake = "While you have {$Keywords.ReserveMana} Magick{!Icons.Mana}, your {$Keywords.Omega} use {#ManaFormat}{$TooltipData.ExtractData.ManaDelta:F} {#Prev}less Magick{!Icons.Mana}.",
-	ForceZeusBoonKeepsake_Inactive = "While you have {$Keywords.ReserveMana} Magick{!Icons.Mana}, your {$Keywords.Omega} use {#ManaFormat}{$TooltipData.ExtractData.ManaDelta:F} {#Prev}less Magick{!Icons.Mana}.",
 
 	ForcePoseidonBoonKeepsake = "Slain enemies drop {#MoneyFormatBold}+{$TooltipData.ExtractData.TooltipHeal:F} {!Icons.Currency}{#Prev}.",
-	ForcePoseidonBoonKeepsake_Inactive = "Slain enemies drop {#MoneyFormatBold}+{$TooltipData.ExtractData.TooltipHeal:F} {!Icons.Currency}{#Prev}.",
 
 	ForceApolloBoonKeepsake = "Extends the invulnerability period of your {$Keywords.Dash} by {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipMultiplier:F}{#Prev}.",
-	ForceApolloBoonKeepsake_Inactive = "Extends the invulnerability period of your {$Keywords.Dash} by {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipMultiplier:F}{#Prev}.",
 
-	ForceHestiaBoonKeepsake = "All your damage is increased by {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipDamage:F} {#Prev}, but you have {#PenaltyFormat}{$TooltipData.ExtractData.HealthPenalty:P}{#Prev}{!Icons.HealthDown}.",
-	ForceHestiaBoonKeepsake_Inactive = "All your damage is increased by {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipDamage:F} {#Prev}, but you have {#PenaltyFormat}{$TooltipData.ExtractData.HealthPenalty:P}{#Prev}{!Icons.HealthDown}.",
+	ForceHestiaBoonKeepsake = "During each {$Keywords.EncounterAlt} after a delay your burn the ground beneath your feet, creating {#UpgradeFormat}{$TooltipData.ExtractData.ProjectileAmount} {#Prev} {#BoldFormatGraft} Lava Pools{#Prev}.",
 
 	ForceHephaestusBoonKeepsake = "You gain {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipArmor:F} {#Prev} of all {!Icons.HealthUp} rewards as {!Icons.ArmorTotal}.",
-	ForceHephaestusBoonKeepsake_Inactive = "You gain {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipArmor:F} {#Prev} of all {!Icons.HealthUp} rewards as {!Icons.ArmorTotal}.",
 
 	ForceAphroditeBoonKeepsake = "Increases your chances to receive a {$Keywords.GodBoon} of higher {$Keywords.Rarity}. {#RareFormat}Rare {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.RareBonus:P} {#Prev}, {#EpicFormat}Epic {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.EpicBonus:P} {#Prev}and {#DuoFormat}Duo {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.DuoBonus:P} {#Prev}.",
-	ForceAphroditeBoonKeepsake_Inactive = "Increases your chances to receive a {$Keywords.GodBoon} of higher {$Keywords.Rarity}. {#RareFormat}Rare {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.RareBonus:P} {#Prev}, {#EpicFormat}Epic {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.EpicBonus:P} {#Prev}and {#DuoFormat}Duo {#Prev}{#AltUpgradeFormat}{$TooltipData.ExtractData.DuoBonus:P} {#Prev}.",
 
-	ForceDemeterBoonKeepsake = "While under {#BoldFormatGraft}{$TooltipData.ExtractData.Health:F}{#Prev}{!Icons.Health}, your {$Keywords.Omega} use {#ManaFormat}{$TooltipData.ExtractData.ManaDelta:F} {#Prev}less Magick{!Icons.Mana}.",
-	ForceDemeterBoonKeepsake_Inactive = "While under {#BoldFormatGraft}{$TooltipData.ExtractData.Health:F}{#Prev}{!Icons.Health}, your {$Keywords.Omega} use {#ManaFormat}{$TooltipData.ExtractData.ManaDelta:F} {#Prev}less Magick{!Icons.Mana}.",
+	ForceDemeterBoonKeepsake = "After every {$Keywords.EncounterAlt}, you gain a random assortment of {#AltUpgradeFormat}{$TooltipData.ExtractData.ItemCount} {#Prev} {$Keywords.AllElementsWithCount}.",
 
-	ForceHeraBoonKeepsake = "Your {$Keywords.Attack} and {$Keywords.Special} each deal {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipBonus:P} {#Prev}damage while not empowered by a {$Keywords.GodBoon}.",
-	ForceHeraBoonKeepsake_Inactive = "Your {$Keywords.Attack} and {$Keywords.Special} each deal {#AltUpgradeFormat}{$TooltipData.ExtractData.TooltipBonus:P} {#Prev}damage while not empowered by a {$Keywords.GodBoon}.",
+	ForceHeraBoonKeepsake = "You can purge any God's {$Keywords.GodBoon} (except Hera's) into a {#BoldFormatGraft} Giga Pom of Power {!Icons.Pom} {#Prev}, {#UpgradeFormat}{$TooltipData.HeraBoonConversionUses} {#Prev} times this night.",
 
 	ForceAresBoonKeepsake = "After hitting a foe multiple times inflict a {#BoldFormatGraft}Bloody Wound {#Prev} upon them. You deal {#AltUpgradeFormat}{$TooltipData.ExtractData.Mult:P} {#Prev} damage to foes suffering from a {#BoldFormatGraft}Bloody Wound{#Prev}.",
-	ForceAresBoonKeepsake_Inactive = "After hitting a foe multiple times inflict a {#BoldFormatGraft}Bloody Wound {#Prev} upon them. You deal {#AltUpgradeFormat}{$TooltipData.ExtractData.Mult:P} {#Prev} damage  to foes suffering from a {#BoldFormatGraft}Bloody Wound{#Prev}.",
 
 	AthenaEncounterKeepsake = "While you have this {$Keywords.KeepsakeAlt} equipped your {$Keywords.ExtraChance} will summon a hail of spears, instantly slaying all foes and dealing {#AltUpgradeFormat}{$TooltipData.ExtractData.BossDamage}% {#Prev} {!Icons.HealthUp} to any {$Keywords.Boss}. Multiple uses against the same {$Keywords.Boss} deal significantly reduced damage.",
 
@@ -36,11 +27,11 @@ local ids_to_descriptions = {
 local extras = {
 	Moon_1 = {
 		DisplayName = "Full Moon",
-		Description = "Major Phase. Your {$Keywords.Omega} deal {#UpgradeFormat}{$TooltipData.ExtractData.TooltipDamageBonus:P} {#Prev}damage."
+		Description = "Major Phase. The full might of the Moon obliterates the area, dealing {#UpgradeFormat}{$TooltipData.ExtractData.Damage} {#Prev}damage in a radius of {#UpgradeFormat}{$TooltipData.ExtractData.Radius} {#Prev} units."
 	},
 	Moon_2 = {
-		DisplayName = "Waning Gibbos",
-		Description = "Minor Phase. Your {$Keywords.Omega} deal {#UpgradeFormat}{$TooltipData.ExtractData.TooltipDamageBonus:P} {#Prev}damage."
+		DisplayName = "Waning Gibbous",
+		Description = "Minor Phase. The might of the Moon blasts the area, dealing {#UpgradeFormat}{$TooltipData.ExtractData.Damage} {#Prev}damage in a radius of {#UpgradeFormat}{$TooltipData.ExtractData.Radius} {#Prev} units."
 	},
 	Moon_3 = {
 		DisplayName = "Last Quarter",
@@ -52,18 +43,18 @@ local extras = {
 	},
 	Moon_5 = {
 		DisplayName = "New Moon",
-		Description = "Major Phase. Your {$Keywords.Attack}, {$Keywords.Special}, {$Keywords.Cast} and {$Keywords.Omega} are {#AltUpgradeFormat}{$TooltipData.ExtractData.Speed}% {#Prev} faster."
+		Description = "Major Phase. You take {#BoldFormatGraft}0 {#Prev}damage the first {#AltUpgradeFormat}{$TooltipData.ExtractData.ShieldHits} {#Prev}time(s) you are hit."
 	},
 	Moon_6 = {
 		DisplayName = "Waxing Crescent",
-		Description = "Minor Phase. Your {$Keywords.Attack}, {$Keywords.Special}, {$Keywords.Cast} and {$Keywords.Omega} are {#AltUpgradeFormat}{$TooltipData.ExtractData.Speed}% {#Prev} faster."
+		Description = "Minor Phase. You take {#BoldFormatGraft}0 {#Prev}damage the first {#AltUpgradeFormat}{$TooltipData.ExtractData.ShieldHits} {#Prev}time(s) you are hit."
 	},
 	Moon_7 = {
 		DisplayName = "First Quarter",
 		Description = "Major Phase. Your {$Keywords.Cast} is {#AltUpgradeFormat}{$TooltipData.ExtractData.Size:F} {#Prev} bigger."
 	},
 	Moon_8 = {
-		DisplayName = "Waxing Gibbos",
+		DisplayName = "Waxing Gibbous",
 		Description = "Minor Phase. Your {$Keywords.Cast} is {#AltUpgradeFormat}{$TooltipData.ExtractData.Size:F} {#Prev} bigger."
 	},
 }
@@ -93,8 +84,33 @@ end)
 textfile = rom.path.combine(rom.paths.Content, 'Game/Text/en/HelpText.en.sjson')
 
 local extrakeywords = {
-
+	UseLootAndPurge = {
+		DisplayName = "{I} Accept\n {SI} Purge {#UpgradeFormat}(+{$LootSetData.Loot.StackUpgradeTriple.StackNum}{$Keywords.PomLevel} {!Icons.Pom})"
+	},
+	UseLootGiftAndPurge = {
+		DisplayName = "{I} Accept\n {G} Gift\n {SI} Purge {#UpgradeFormat}(+{$LootSetData.Loot.StackUpgradeTriple.StackNum}{$Keywords.PomLevel} {!Icons.Pom})"
+	},
+	AltarIncantationNotDone = {
+		DisplayName = "You haven't done the incantation to unlock the altar yet!"
+	}
 }
+
+order = {
+	"Id", "DisplayName"
+}
+
+sjson.hook(textfile, function(sjsonData)
+	for key, value in pairs(extrakeywords) do
+		value.Id = key
+
+		local newItem = sjson.to_object({
+			Id = value.Id,
+			DisplayName = value.DisplayName
+		}, order)
+
+		table.insert(sjsonData.Texts, newItem)
+	end
+end)
 
 Keepsakes = {
 	BaseBoonUpgradeKeepsake =
@@ -336,59 +352,24 @@ Keepsakes = {
 		Icon = "Keepsake_53",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeAthenaOwl",
 		InRackTitle = "ForceHestiaBoonKeepsake_Rack",
-		MaxHealthMultiplier = 0.80,
-		AddOutgoingDamageModifiers =
+		OnEncounterStartFunction =
 		{
-			ValidWeapons = WeaponSets.HeroAllWeapons,
-			ValidWeaponMultiplier = { BaseValue = 1.05 },
-			ReportValues =
+			Name = _PLUGIN.guid .. '.' .. 'SetupHestiaKeepsake',
+			Args =
 			{
-				ReportedDamageBonus = "ValidWeaponMultiplier",
+				ProjectileAmount = { BaseValue = 1 },
+				Delay = 2,
+				ReportValues = {
+					ReportedProjectileAmount = "ProjectileAmount",
+				}
 			}
-		},
-		PropertyChanges =
-		{
-			{
-				LuaProperty = "MaxHealth",
-				ChangeValue = 0.80,
-				ChangeType = "Multiply",
-				SourceIsMultiplier = true,
-				MaintainDelta = true,
-				ReportValues = { ReportedHealthPenalty = "ChangeValue" }
-			},
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedDamageBonus",
-				ExtractAs = "TooltipDamage",
-				Format = "PercentDelta",
+				Key = "ReportedProjectileAmount",
+				ExtractAs = "ProjectileAmount",
 			},
-			{
-				Key = "ReportedHealthPenalty",
-				ExtractAs = "HealthPenalty",
-				Format = "PercentDelta",
-				SkipAutoExtract = true,
-			},
-		},
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.0,
-			},
-			Rare =
-			{
-				Multiplier = 1.05,
-			},
-			Epic =
-			{
-				Multiplier = 1.1,
-			},
-			Heroic =
-			{
-				Multiplier = 1.15,
-			}
 		},
 		EquipVoiceLines =
 		{
@@ -427,25 +408,6 @@ Keepsakes = {
 				Format = "Percent",
 			},
 		},
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.0,
-			},
-			Rare =
-			{
-				Multiplier = 1.75,
-			},
-			Epic =
-			{
-				Multiplier = 2.5,
-			},
-			Heroic =
-			{
-				Multiplier = 3.75,
-			}
-		},
 		EquipVoiceLines =
 		{
 			{
@@ -474,47 +436,17 @@ Keepsakes = {
 		Icon = "Keepsake_49",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeDemeterHorn",
 		InRackTitle = "ForceDemeterBoonKeepsake_Rack",
-		ManaCostModifiers =
-		{
-			LowHealthThreshold = 0.5,
-			WeaponNames = WeaponSets.HeroAllWeapons,
-			ManaCostMultiplierWhileLowHealth = { BaseValue = 0.6 },
-			ReportValues = {
-				ReportedManaCost = "ManaCostMultiplierWhileLowHealth",
-				ReportedThreshold = "LowHealthThreshold",
-			}
+		EncounterEndFunctionName = _PLUGIN.guid .. '.' .. 'DemeterKeepsake',
+		EncounterEndFunctionArgs = {
+			ItemCount = { BaseValue = 1 },
+			ReportValues = { ReportedItemCount = "ItemCount" }
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedManaCost",
-				ExtractAs = "ManaDelta",
-				Format = "PercentDelta",
+				Key = "ReportedItemCount",
+				ExtractAs = "ItemCount",
 			},
-			{
-				Key = "ReportedThreshold",
-				ExtractAs = "Health",
-				Format = "Percent",
-			},
-		},
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.0,
-			},
-			Rare =
-			{
-				Multiplier = 0.67,
-			},
-			Epic =
-			{
-				Multiplier = 0.33,
-			},
-			Heroic =
-			{
-				Multiplier = 0.0,
-			}
 		},
 		EquipVoiceLines =
 		{
@@ -621,62 +553,8 @@ Keepsakes = {
 		Icon = "Keepsake_47",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeAthenaOwl",
 		InRackTitle = "ForceHeraBoonKeepsake_Rack",
-		-- TooltipMultiplier = { BaseValue = 1.5 },
-		-- VisualActivationRequirements = 
-		-- {
-		-- 	{
-		-- 		{
-		-- 			PathFalse = { "CurrentRun", "Hero", "SlottedTraits", "Melee" },
-		-- 		},
-		-- 	},
-		-- 	{
-		-- 		{
-		-- 			PathFalse = { "CurrentRun", "Hero", "SlottedTraits", "Secondary" },
-		-- 		},
-		-- 	},
-
-		-- },
-		AddOutgoingDamageModifiers =
-		{
-			EmptySlotMultiplier = {
-				BaseValue = 1.5,
-				SourceIsMultiplier = true,
-			},
-			EmptySlotValidData =
-			{
-				--Ranged = WeaponSets.HeroNonPhysicalWeapons,
-				Melee = WeaponSets.HeroPrimaryWeapons,
-				Secondary = WeaponSets.HeroSecondaryWeapons,
-			},
-			ReportValues = { ReportedWeaponMultiplier = "EmptySlotMultiplier"},
-		},
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.0,
-			},
-			Rare =
-			{
-				Multiplier = 1.5,
-			},
-			Epic =
-			{
-				Multiplier = 2.0,
-			},
-			Heroic =
-			{
-				Multiplier = 2.5,
-			}
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedWeaponMultiplier",
-				ExtractAs = "TooltipBonus",
-				Format = "PercentDelta",
-			},
-		},
+		ZeroBonusTrayText = "ForceHeraBoonKeepsake_NoUpgradeUses",
+		HeraBoonConversionUses = { BaseValue = 1 },
 		EquipVoiceLines =
 		{
 			{
@@ -967,7 +845,7 @@ Keepsakes = {
 		Name = "Moon_Base",
 		InheritFrom = { "BaseTrait" },
 		RemainingUses = 1,
-		UsesAsEncounters = true,
+		UsesAsRooms = true,
 		BlockStacking = true,
 		BlockInRunRarify = true,
 		BlockMenuRarify = true,
@@ -997,35 +875,48 @@ Keepsakes = {
 		Name = "Moon_1",
 		InheritFrom = { "Moon_Base" },
 		Icon = "MoonPhase1",
+		PreEquipWeapons = {"WeaponSpellMeteor",},
 		RarityLevels = {
 			Common =
 			{
-				Multiplier = 1.5,
+				Multiplier = 1.0,
 			},
 			Rare =
 			{
-				Multiplier = 2.0,
+				Multiplier = 1.25,
 			},
 			Epic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 1.5,
 			},
 			Heroic =
 			{
-				Multiplier = 3.0,
+				Multiplier = 1.75,
 			},
 		},
-		AddOutgoingDamageModifiers =
+		OnEncounterStartFunction =
 		{
-			ExMultiplier = { BaseValue = 1.0 },
-			ReportValues = { ReportedWeaponMultiplier = "ExMultiplier"}
+			Name = _PLUGIN.guid .. '.' .. 'SetupMoonBlast',
+			Args =
+			{
+				Damage = { BaseValue = 2000 },
+				Radius = { BaseValue = 1000 },
+				Delay = 3,
+				ReportValues = {
+					ReportedDamage = "Damage",
+					ReportedRadius = "Radius",
+				}
+			}
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedWeaponMultiplier",
-				ExtractAs = "TooltipDamageBonus",
-				Format = "PercentDelta",
+				Key = "ReportedDamage",
+				ExtractAs = "Damage",
+			},
+			{
+				Key = "ReportedRadius",
+				ExtractAs = "Radius",
 			},
 		},
 	},
@@ -1036,32 +927,44 @@ Keepsakes = {
 		RarityLevels = {
 			Common =
 			{
-				Multiplier = 1.25,
+				Multiplier = 1.0,
 			},
 			Rare =
 			{
-				Multiplier = 1.5,
+				Multiplier = 1.25,
 			},
 			Epic =
 			{
-				Multiplier = 1.75,
+				Multiplier = 1.5,
 			},
 			Heroic =
 			{
-				Multiplier = 2.0,
+				Multiplier = 1.75,
 			},
 		},
-		AddOutgoingDamageModifiers =
+		OnEncounterStartFunction =
 		{
-			ExMultiplier = { BaseValue = 1.0 },
-			ReportValues = { ReportedWeaponMultiplier = "ExMultiplier"}
+			Name = _PLUGIN.guid .. '.' .. 'SetupMoonBlast',
+			Args =
+			{
+				Damage = { BaseValue = 1000 },
+				Radius = { BaseValue = 500 },
+				Delay = 3,
+				ReportValues = {
+					ReportedDamage = "Damage",
+					ReportedRadius = "Radius",
+				}
+			}
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedWeaponMultiplier",
-				ExtractAs = "TooltipDamageBonus",
-				Format = "PercentDelta",
+				Key = "ReportedDamage",
+				ExtractAs = "Damage",
+			},
+			{
+				Key = "ReportedRadius",
+				ExtractAs = "Radius",
 			},
 		},
 	},
@@ -1085,6 +988,7 @@ Keepsakes = {
 			{
 				EffectName = "HadesInvisible",
 				Duration = 2,
+				Cooldown = 1,
 				ReportValues =
 				{
 					ReportedDuration = "Duration",
@@ -1129,6 +1033,7 @@ Keepsakes = {
 			{
 				EffectName = "HadesInvisible",
 				Duration = 1.5,
+				Cooldown = 1,
 				ReportValues =
 				{
 					ReportedDuration = "Duration",
@@ -1158,32 +1063,24 @@ Keepsakes = {
 		Name = "Moon_5",
 		InheritFrom = { "Moon_Base" },
 		Icon = "MoonPhase5",
-		WeaponSpeedMultiplier =
+		SetupFunction =
 		{
-			WeaponNames = WeaponSets.HeroAllWeaponsAndSprint,
-			Value =
+			Name = _PLUGIN.guid .. '.' .. 'SetupMoonShield',
+			Args =
 			{
-				BaseValue = 0.8,
-				SourceIsMultiplier = true,
-			},
-			ReportValues = { ReportedSpeed = "Value" },
-		},
-		PropertyChanges =
-		{
-			{
-				WeaponNames = WeaponSets.HeroAllWeapons,
-				BaseValue = 0.8,
-				SourceIsMultiplier = true,
-				SpeedPropertyChanges = true,
-				ExcludeLinked = true,
+				ShieldFx = "MelShieldFront",
+				ShieldHits =
+				{
+					BaseValue = 2,
+				},
+				ReportValues = { ReportedShieldHits = "ShieldHits" }
 			},
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedSpeed",
-				ExtractAs = "Speed",
-				Format = "NegativePercentDelta",
+				Key = "ReportedShieldHits",
+				ExtractAs = "ShieldHits",
 			},
 		},
 	},
@@ -1191,32 +1088,24 @@ Keepsakes = {
 		Name = "Moon_6",
 		InheritFrom = { "Moon_Base" },
 		Icon = "MoonPhase6",
-		WeaponSpeedMultiplier =
+		SetupFunction =
 		{
-			WeaponNames = WeaponSets.HeroAllWeaponsAndSprint,
-			Value =
+			Name = _PLUGIN.guid .. '.' .. 'SetupMoonShield',
+			Args =
 			{
-				BaseValue = 0.9,
-				SourceIsMultiplier = true,
-			},
-			ReportValues = { ReportedSpeed = "Value" },
-		},
-		PropertyChanges =
-		{
-			{
-				WeaponNames = WeaponSets.HeroAllWeapons,
-				BaseValue = 0.9,
-				SourceIsMultiplier = true,
-				SpeedPropertyChanges = true,
-				ExcludeLinked = true,
+				ShieldFx = "MelShieldFront",
+				ShieldHits =
+				{
+					BaseValue = 1,
+				},
+				ReportValues = { ReportedShieldHits = "ShieldHits" }
 			},
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedSpeed",
-				ExtractAs = "Speed",
-				Format = "NegativePercentDelta",
+				Key = "ReportedShieldHits",
+				ExtractAs = "ShieldHits",
 			},
 		},
 	},
