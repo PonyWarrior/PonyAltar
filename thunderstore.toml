@@ -5,7 +5,7 @@ schemaVersion = "0.0.1"
 [package]
 namespace = "PonyWarrior"
 name = "PonyAltar"
-versionNumber = "0.5.0"
+versionNumber = "0.6.0"
 description = "Overhauls the Gods' keepsakes, transferring their functionality to an altar and giving each keepsake a unique effect."
 websiteUrl = "https://github.com/PonyWarrior/PonyAltar"
 containsNsfwContent = false
