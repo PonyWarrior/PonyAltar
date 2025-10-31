@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.1] - 2025-10-31
+
 ### Changed
 
 - Fixed text typos
@@ -158,7 +160,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First version of the mod!
 
-[unreleased]: https://github.com/PonyWarrior/PonyAltar/compare/0.6.0...HEAD
+[unreleased]: https://github.com/PonyWarrior/PonyAltar/compare/0.6.1...HEAD
+[0.6.1]: https://github.com/PonyWarrior/PonyAltar/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/PonyWarrior/PonyAltar/compare/0.5.0...0.6.0
 [0.5.0]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.5...0.5.0
 [0.4.5]: https://github.com/PonyWarrior/PonyAltar/compare/0.4.4...0.4.5
